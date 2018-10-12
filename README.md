@@ -1,10 +1,10 @@
-# Course To Quiz (Web App - Not Ready For Production) 
+# Course To Quiz (Web App - Not Ready For Production)
 
 This webapp is an online platform to learn about various courses and also give fun quiz about the course.
 
-### Live - https://course2quiz.algobasket.com/ 
- 
-![alt text](https://github.com/algobasket/CourseToQuiz/blob/master/background.png) 
+### Live - https://course2quiz.algobasket.com/
+
+![alt text](https://raw.githubusercontent.com/algobasket/CourseToQuiz/master/background.png) 
 
 ## Features & Functionalities
 
@@ -22,7 +22,7 @@ This webapp is an online platform to learn about various courses and also give f
 
 * "Next" button will pose the next question and "Previous" Button will traverse to the previous question.
  "Show Answer" button should reveal the answer to the user. "Explanation" button will display the explanation
- related to the question from the database. "Submit" button will submit the options and the answers are compared 
+ related to the question from the database. "Submit" button will submit the options and the answers are compared
 in the database and the result will be displayed to the user.
 
 * Users quiz history will be saved in db and everytime the user logins, his history can be viewed by him in his dashboard
@@ -93,7 +93,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/algobasket/b24679402957c63
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/algobasket/CourseToQuiz/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/algobasket/CourseToQuiz/tags).
 
 ## Authors
 
