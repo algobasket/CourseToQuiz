@@ -1,0 +1,144 @@
+/* ----Auth Page----- */
+hr.style13 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  }
+  .bgImageJumbotron{
+    background-image: url('../../assets/img/school.png');
+    background-size:cover;
+    background-position: bottom;
+  }
+  .heading-banner{
+    color: #fff;
+    font-size:35px;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+  .bgImageJumbotron2{
+    background-image: url('../../assets/img/mobile-app.png');
+    background-size:cover;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height:530px
+}
+.href-normal{
+  text-decoration:none !important;
+  color:#fff !important
+}
+.href-normal a{
+  text-decoration:none !important;
+  color:#fff !important;
+  margin:5px
+}
+footer{
+  background-color:#000000
+}
+.image-container .after {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: none;
+color: #FFF;
+}
+.image-container:hover .after {
+display: block;
+background: rgba(0, 0, 0, .6);
+}
+h3{
+    color: #2e3236;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: .02em
+}
+.form-signin {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+/* // Sliderbar */
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+.placeThumbnail{
+  cursor: pointer;
+}
+.placeThumbnail:hover{
+  zoom: 1;
+}
+.bd-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+.media-body{
+  margin-left:20px
+}
