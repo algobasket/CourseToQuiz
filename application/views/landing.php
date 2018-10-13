@@ -34,7 +34,7 @@
                       <a href="<?php echo base_url();?>show-course/<?php echo $course['course_name'];?>" class="btn btn-sm btn-outline-secondary">Take Course</a>
                       <a href="<?php echo base_url();?>show-quiz/<?php echo $course['course_name'];?>" class="btn btn-sm btn-info">Take Quiz</a>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted"><?php echo date('d,M Y',strtotime($course['created']));?></small>
                   </div>
                 </div>
               </div>

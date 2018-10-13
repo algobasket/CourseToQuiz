@@ -8,7 +8,8 @@
      $this->load->model('courses_model');
      $this->load->model('quiz_model');
      $this->load->model('crud_model');
-     $this->load->helper('subscription_helper');
+     $this->load->helper('subscription');
+     $this->load->helper('common');
    }
 
 

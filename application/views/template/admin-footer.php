@@ -1,8 +1,14 @@
 </div>
 
 </div>
-
-
+<br>
+<hr>
+<div class="container">
+<center>
+  <h6>Made With <i class="fa fa-heart" style="font-size:20px;color:#af4456;"></i> - Algobasket Production</h6>
+</center>
+<br>
+</div>
 <!-- Bootstrap core JavaScript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->

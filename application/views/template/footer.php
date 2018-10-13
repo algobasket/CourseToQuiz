@@ -2,7 +2,7 @@
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
-    <p>Made With <i class="fa fa-heart" style="font-size:20px;color:#af4456;"></i></p>
+    <p>Made With <i class="fa fa-heart" style="font-size:20px;color:#af4456;"></i> - Algobasket Production</p>
     </p>
     <p>CourseToQuiz is &copy; Algobasket's product, all right reserved to the owner!</p>
     <p>New to CourseToQuiz? <a href="<?php echo base_url();?>">Visit the homepage</a> or read our <a href="<?php echo base_url();?>About-Us">getting started guide</a>.</p>
