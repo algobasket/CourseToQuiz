@@ -66,5 +66,13 @@ $route['show-quiz/(:any)'] = 'home/show_quiz';
 
 $route['membership-plan'] = 'home/membership_plan';
 
+$route['license'] = 'home/license';
+$route['subscription'] = 'home/subscription';
+$route['legal-notice'] = 'home/legal_notice';
+$route['privacy-policy'] = 'home/privacy_policy';
+$route['about'] = 'home/about';
+$route['contact'] = 'home/contact';
+$route['faq'] = 'home/faq';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -48,7 +48,7 @@
       <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
           <a href="<?php echo base_url();?>" class="navbar-brand d-flex align-items-center">
-            <strong>CourseToQuiz</strong>
+            <strong><i class="fa fa-code"></i> CourseToQuiz</strong>
           </a>
           <?php if($this->session->userdata('userId')){ ?>
             <div class="dropdown">

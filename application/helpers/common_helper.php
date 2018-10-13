@@ -171,4 +171,16 @@
     }
  }
 
+
+
+if( ! function_exists('imageSearch')){
+    include APPPATH . "libraries/simplehtmldom/simple_html_dom.php";
+ function imageSearch($word){
+   $search_keyword=str_replace(' ','+',$word);
+   $newhtml =file_get_html("https://www.google.com/search?q=".$search_keyword."&tbm=isch");
+   $result_image_source = $newhtml->find('img',0)->src;
+   return $result_image_source;
+ }
+}
+
  ?>

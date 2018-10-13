@@ -2,11 +2,28 @@
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
-    <p>Made With <i class="fa fa-heart" style="font-size:20px;color:#af4456;"></i> - Algobasket Production</p>
+      <p >
+        Made With <i class="fa fa-heart" style="font-size:20px;color:#af4456;"></i> - Algobasket Production
+         <a href="" style="text-decoration:none;color:#aaa;margin-left:10px" class="float-right"><i class="fa fa-facebook-square fa-2x"></i></a>
+         <a href="" style="text-decoration:none;color:#aaa;margin-left:10px" class="float-right"><i class="fa fa-twitter-square fa-2x"></i></a>
+         <a href="" style="text-decoration:none;color:#aaa" class="float-right"><i class="fa fa-youtube fa-2x"></i></a>
+      </p>
     </p>
     <p>CourseToQuiz is &copy; Algobasket's product, all right reserved to the owner!</p>
-    <p>New to CourseToQuiz? <a href="<?php echo base_url();?>">Visit the homepage</a> or read our <a href="<?php echo base_url();?>About-Us">getting started guide</a>.</p>
+    <p>
+     <center>
 
+         <a href="<?php echo base_url();?>license" style="text-decoration:none;color:#aaa">Licence</a> |
+         <a href="<?php echo base_url();?>subscription" style="text-decoration:none;color:#aaa">Subscription</a> |
+         <a href="<?php echo base_url();?>legal-notice" style="text-decoration:none;color:#aaa">Legal Notice</a> |
+         <a href="<?php echo base_url();?>privacy-policy" style="text-decoration:none;color:#aaa">Privacy Policy</a> |
+         <a href="<?php echo base_url();?>about" style="text-decoration:none;color:#aaa">About</a> |
+         <a href="<?php echo base_url();?>contact" style="text-decoration:none;color:#aaa">Contact</a> |
+         <a href="<?php echo base_url();?>faq" style="text-decoration:none;color:#aaa">FAQ</a>
+
+
+     </center>
+    </p>
   </div>
 </footer>
 

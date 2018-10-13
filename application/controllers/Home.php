@@ -113,7 +113,54 @@
    }
 
 
+  function license(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'license'
+    ]);
+  }
 
+  function subscription(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'subscription'
+    ]);
+  }
+
+  function legal_notice(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'legal_notice'
+    ]);
+  }
+
+  function privacy_policy(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'privacy_policy'
+    ]);
+  }
+
+  function about(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'about'
+    ]);
+  }
+
+  function contact(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'contact'
+    ]);
+  }
+
+  function faq(){
+    $this->load->view('template/content',[
+      'page'      => 'site',
+      'section'   => 'faq'
+    ]);
+  }
 
 
 
