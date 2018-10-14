@@ -53,10 +53,21 @@ class Courses extends Base
 
   function create_course(){
     if($this->input->post('create')){
+          if($this->input->post('image_link_external')){
+             $image_link = $this->input->post('image_link_external');
+          }elseif($this->input->post('image_link_raw')){
+               $config['upload_path']          = './uploads/';
+               $config['allowed_types']        = 'gif|jpg|png';
+               $config['max_size']             = 100;
+               $config['max_width']            = 1024;
+               $config['max_height']           = 768;
+             $file = $this->upload->do_upload('image_link_raw');
+          }
         $output = $this->create('course',[
           'course_title' => $this->input->post('title'),
           'course_name'  => $this->input->post('name'),
           'category_id'  => $this->input->post('category_id'),
+          'image_link'   => $image_link,
           'created'      =>date('d-m-Y h:i:s'),
           'status'       => $this->input->post('status')
         ]);

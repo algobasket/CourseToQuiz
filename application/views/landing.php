@@ -22,7 +22,7 @@ b, strong {
 
     <main role="main">
 
-      <section class="jumbotron text-center bgImageJumbotron image-container shadow-lg" style="border-radius:0">
+      <section class="jumbotron text-center bgImageJumbotron image-container shadow-lg sliderVegas" style="border-radius:0">
         <div class="overlay"></div>
         <div class="container">
           <br><br>

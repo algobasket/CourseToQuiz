@@ -17,7 +17,7 @@
 
     <!-- Custom css -->
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/vegas/vegas.min.css">
   </head>
 
   <body>

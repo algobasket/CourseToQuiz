@@ -59,6 +59,17 @@
                       </select>
                     </th>
                </tr>
+               <tr>
+                    <th>Course Image <br>(Choose any one)</th>
+                    <th>
+                      External Link:(using external image link)<input type="text" placeholder="Course Image Thumbnail" name="image_link_external" class="form-control" required/>
+                      <br>
+                      Upload Image:(upload raw image)<input type="file" name="image_link_raw" class="form-control" />
+                      <br>
+                      Google Autoload:(autoload from google)
+                      <input type="checkbox" name="image_google_autoload"/>   <br>
+                      </th>
+               </tr>
                 <tr>
                      <th>Status</th>
                     <th>

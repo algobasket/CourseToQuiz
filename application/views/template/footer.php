@@ -36,7 +36,17 @@
 <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js" ></script>
 <script src="<?php echo base_url();?>assets/js/holder.js"></script>
-
+<script src="<?php echo base_url();?>assets/vegas/vegas.min.js"></script>
+<script>
+$(".sliderVegas").vegas({
+    slides: [
+        { src: "<?php echo base_url();?>assets/img/slider/slider1.jpg" },
+        { src: "<?php echo base_url();?>assets/img/slider/slider2.jpg" },
+        { src: "<?php echo base_url();?>assets/img/slider/slider3.jpg" }
+    ],
+    overlay:'http://vegas.jaysalvat.com/js/vegas/dist/overlays/09.png'
+});
+</script>
 <script>
 $(document).ready(function(){
   $('.openMenu').click(function(){
