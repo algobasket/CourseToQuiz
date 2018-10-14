@@ -183,4 +183,16 @@ if( ! function_exists('imageSearch')){
  }
 }
 
+if( ! function_exists('getStatusBgClassName')){
+    function getStatusBgClassName($statusId){
+       if($statusId == 1 || $statusId == 4){
+          return "bg-success";
+       }elseif($statusId == 3 || $statusId == 6 || $statusId == 0){
+          return "bg-danger";
+       }elseif($statusId == 5 || $statusId == 2){
+          return "bg-warning";
+       }
+    }
+}
+
  ?>

@@ -25,7 +25,7 @@
                     <th><?php echo $item['category_name'];?></th>
                     <th><?php echo $item['parent_id'];?></th>
                     <th><?php echo $item['created'];?></th>
-                    <th><?php echo $item['status'];?></th>
+                    <th class="<?php echo getStatusBgClassName($item['status']);?>"><?php echo getStatusName($item['status']);?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/category/update_category/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/category/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>

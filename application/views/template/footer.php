@@ -47,6 +47,7 @@ $(".sliderVegas").vegas({
     overlay:'http://vegas.jaysalvat.com/js/vegas/dist/overlays/09.png'
 });
 </script>
+<script src="<?php echo base_url();?>assets/js/star-rating.js"></script>
 <script>
 $(document).ready(function(){
   $('.openMenu').click(function(){

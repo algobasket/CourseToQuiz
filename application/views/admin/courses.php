@@ -4,6 +4,7 @@
           <br><br>
          <?php if($section == "list"){ ?>
           <h2>Courses <a href="<?php echo base_url();?>admin/courses/create_course" class="btn btn-secondary btn-sm float-right">Create New</a></h2>
+          <?php echo $this->session->flashdata('alert');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
@@ -25,7 +26,7 @@
                     <th><?php echo $item['course_name'];?></th>
                     <th><?php echo $item['category_title'];?></th>
                     <th><?php echo $item['created'];?></th>
-                    <th><?php echo $item['status'];?></th>
+                    <th class="<?php echo getStatusBgClassName($item['status']);?>"><?php echo ucfirst(getStatusName($item['status']));?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/courses/update_course/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/courses/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
@@ -37,7 +38,7 @@
           </div>
         <?php }elseif($section == "create"){ ?>
           <h2>Create Course</h2>
-          <?php echo form_open('admin/courses/create_course');?>
+          <?php echo form_open_multipart('admin/courses/create_course');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <tr>
@@ -62,7 +63,7 @@
                <tr>
                     <th>Course Image <br>(Choose any one)</th>
                     <th>
-                      External Link:(using external image link)<input type="text" placeholder="Course Image Thumbnail" name="image_link_external" class="form-control" required/>
+                      External Link:(using external image link)<input type="text" placeholder="Course Image Thumbnail" name="image_link_external" class="form-control"/>
                       <br>
                       Upload Image:(upload raw image)<input type="file" name="image_link_raw" class="form-control" />
                       <br>
@@ -89,18 +90,18 @@
           </div>
           <?php echo form_close();?>
         <?php }elseif($section == "update"){ ?>
-          <h2>Update Course</h2>
-          <?php echo form_open('admin/courses/update_course/'.$this->uri->segment(4));?>
+          <h2>Update Course <a href="<?php echo base_url();?>admin/courses/update_course_detail/<?php echo $this->uri->segment(4);?>" class="btn btn-primary btn-sm float-right">Update Course Detail</a></h2>
+          <?php echo form_open_multipart('admin/courses/update_course/'.$this->uri->segment(4));?>
           <div class="table-responsive">
             <?php foreach($one as $item){ } ?>
             <table class="table table-striped table-sm">
                 <tr>
                     <th>Course Title</th>
-                    <th><input type="text" value="<?php echo $item['course_title'];?>" class="form-control" /></th>
+                    <th><input type="text" value="<?php echo $item['course_title'];?>" class="form-control" name="title" /></th>
                </tr>
                <tr>
                     <th>Course Name</th>
-                    <th><input type="text" value="<?php echo $item['course_name'];?>" class="form-control" /></th>
+                    <th><input type="text" value="<?php echo $item['course_name'];?>" class="form-control" name="name" /></th>
                </tr>
                <tr>
                     <th>Category Name</th>
@@ -113,6 +114,19 @@
                         <?php } ?>
                       </select>
                     </th>
+               </tr>
+               <tr>
+                    <th>Course Image <br></th>
+                    <th>
+                      <img src="<?php echo $item['image_link'];?>" class="thumbnail" />
+                      <label class="badge badge-warning">Keep it blank if you don't want to change course thumbnail</label><br>
+                      External Link:(using external image link)<input type="text" placeholder="Course Image Thumbnail" name="image_link_external" class="form-control"/>
+                      <br>or
+                      Upload Image:(upload raw image)<input type="file" name="image_link_raw" class="form-control" />
+                      <br>or
+                      Google Autoload:(autoload from google)
+                      <input type="checkbox" name="image_google_autoload" <?php echo ($item['is_google_autoload'] == 1) ? "checked" :"" ;?> />   <br>
+                      </th>
                </tr>
                 <tr>
                      <th>Status</th>

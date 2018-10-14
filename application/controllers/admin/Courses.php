@@ -15,6 +15,7 @@ class Courses extends Base
 
     // Load Models
     $this->load->model('courses_model');
+    $this->load->helper('common');
   }
 
   function index(){
@@ -30,13 +31,63 @@ class Courses extends Base
 
   function update_course(){
     if($this->input->post('update')){
-        $output = $this->update('course',['id' => $this->uri->segment(4)],[
+      if($this->input->post('image_link_external')){
+         $image_link = $this->input->post('image_link_external');
+           $is_google_autoload = 0;
+      }elseif($_FILES['image_link_raw']['name']){
+           $config['upload_path']          = './assets/img/course/';
+           $config['allowed_types']        = 'gif|jpg|png';
+           $config['max_size']             = 100;
+           $config['max_width']            = 1024;
+           $config['max_height']           = 768;
+           $this->load->library('upload', $config);
+           $file = $this->upload->do_upload('image_link_raw');
+           if( ! $file){
+             $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+           }else{
+             $upload = $this->upload->data();
+             $config_manip = array(
+                  'image_library' => 'gd2',
+                  'source_image' => $upload['full_path'],
+                  'new_image' => $upload['file_path'],
+                  'maintain_ratio' => TRUE,
+                  'create_thumb' => TRUE,
+                  'thumb_marker' => '_thumb',
+                  'width' => 225,
+                  'height' => 225
+              );
+              $file_name = $upload['file_name'];
+              $this->load->library('image_lib', $config_manip);
+              if (!$this->image_lib->resize()) {
+                   $this->uri->segment('alert','<div class="alert alert-danger">'.$this->image_lib->display_errors().'</div>');
+              }else{
+                 $thumbnail = $upload['raw_name'].'_thumb'.$upload['file_ext'];
+                 $image_link = base_url() . 'assets/img/course/' . $thumbnail;
+              }
+              // clear //
+              $this->image_lib->clear();
+           }
+             $is_google_autoload = 0;
+      }elseif($this->input->post('image_google_autoload') == "on"){
+            $is_google_autoload = 1;
+            $image_link = NULL;
+      }
+        $updateData = [
           'course_title' => $this->input->post('title'),
           'course_name'  => $this->input->post('name'),
           'category_id'  => $this->input->post('category_id'),
           'updated'      => date('d-m-Y h:i:s'),
           'status'       => $this->input->post('status')
-        ]);
+        ];
+        if(isset($image_link)){
+          $updateData['image_link'] = $image_link;
+        }
+        if($is_google_autoload == "on"){
+          $updateData['is_google_autoload'] = 1;
+        }else{
+          $updateData['is_google_autoload'] = 0;
+        }
+        $output = $this->update('course',['id' => $this->uri->segment(4)],$updateData);
         if($output == true){
            $this->session->set_flashdata('alert','<div class="alert alert-success">Category Updated</div>');
         }
@@ -55,19 +106,53 @@ class Courses extends Base
     if($this->input->post('create')){
           if($this->input->post('image_link_external')){
              $image_link = $this->input->post('image_link_external');
-          }elseif($this->input->post('image_link_raw')){
-               $config['upload_path']          = './uploads/';
+               $is_google_autoload = 0;
+          }elseif($_FILES['image_link_raw']['name']){
+               $config['upload_path']          = './assets/img/course/';
                $config['allowed_types']        = 'gif|jpg|png';
                $config['max_size']             = 100;
                $config['max_width']            = 1024;
                $config['max_height']           = 768;
-             $file = $this->upload->do_upload('image_link_raw');
+               $this->load->library('upload', $config);
+               $file = $this->upload->do_upload('image_link_raw');
+               if( ! $file){
+                 $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+               }else{
+                 $upload = $this->upload->data();
+                 $config_manip = array(
+                      'image_library' => 'gd2',
+                      'source_image' => $upload['full_path'],
+                      'new_image' => $upload['file_path'],
+                      'maintain_ratio' => FALSE,
+                      'x_axis' => 225,
+                      'y_axis' => 225,
+                      'create_thumb' => TRUE,
+                      'thumb_marker' => '_thumb'
+                      // 'width' => 225,
+                      // 'height' => 225
+                  );
+                  $file_name = $upload['file_name'];
+                  $this->load->library('image_lib', $config_manip);
+                  if (!$this->image_lib->resize()) {
+                       $this->uri->segment('alert','<div class="alert alert-danger">'.$this->image_lib->display_errors().'</div>');
+                  }else{
+                     $thumbnail = $upload['raw_name'].'_thumb'.$upload['file_ext'];
+                     $image_link = base_url() . 'assets/img/course/' . $thumbnail;
+                  }
+                  // clear //
+                  $this->image_lib->clear();
+               }
+                 $is_google_autoload = 0;
+          }elseif($this->input->post('image_google_autoload') == "on"){
+                $is_google_autoload = 1;
+                $image_link = NULL;
           }
         $output = $this->create('course',[
           'course_title' => $this->input->post('title'),
           'course_name'  => $this->input->post('name'),
           'category_id'  => $this->input->post('category_id'),
           'image_link'   => $image_link,
+          'is_google_autoload' => $is_google_autoload,
           'created'      =>date('d-m-Y h:i:s'),
           'status'       => $this->input->post('status')
         ]);

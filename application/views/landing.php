@@ -18,6 +18,60 @@
 b, strong {
     font-weight: 700;
 }
+.rating {
+      float:left;
+    }
+
+    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+      follow these rules. Every browser that supports :checked also supports :not(), so
+      it doesn’t make the test unnecessarily selective */
+    .rating:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+        clip:rect(0,0,0,0);
+    }
+
+    .rating:not(:checked) > label {
+        float:right;
+        width:1em;
+        /* padding:0 .1em; */
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:110%;
+        /* line-height:1.2; */
+        color:#ddd;
+    }
+
+    .rating:not(:checked) > label:before {
+        content: '★ ';
+    }
+
+    .rating > input:checked ~ label {
+        color: yellow;
+
+    }
+
+    .rating:not(:checked) > label:hover,
+    .rating:not(:checked) > label:hover ~ label {
+        color: yellow;
+
+    }
+
+    .rating > input:checked + label:hover,
+    .rating > input:checked + label:hover ~ label,
+    .rating > input:checked ~ label:hover,
+    .rating > input:checked ~ label:hover ~ label,
+    .rating > label:hover ~ input:checked ~ label {
+        color: yellow;
+
+    }
+
+    .rating > label:active {
+        position:relative;
+        top:2px;
+        left:2px;
+    }
  </style>
 
     <main role="main">
@@ -64,11 +118,24 @@ b, strong {
           <div class="row">
 
            <?php foreach($courses as $course) : ?>
+             <?php $image_link = ($course['is_google_autoload'] == 1) ? imageSearch("udemy+HD+".$course['course_name']) : $course['image_link'];?>
             <div class="col-md-3">
               <div class="card mb-3 box-shadow">
-                <img class="card-img-top" src="<?php echo imageSearch("udemy+HD+".$course['course_name']);?>" data-src="holder.js/100px225?theme=thumb&bg=af4456&fg=eceeef&text=<?php echo $course['course_title'];?>" alt="Card image cap">
+                <img class="card-img-top" height="135" src="<?php echo $image_link;?>" data-src="holder.js/100px135?theme=thumb&bg=af4456&fg=eceeef&text=<?php echo $course['course_title'];?>" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text"><?php echo $course['course_title'];?></p>
+                  <p class="card-text"><?php echo substr($course['course_title'],0,30);?></p>
+                  <p>
+                    <?php $rating = rand(1,4);$rating2 = rand(0,4);?>
+                    <?php $ratingUsers = rand(1,10);?>
+                    <div class="rating">
+                      <?php for($i = 1;$i<= 5 - round($rating);$i++){ ?>
+                      <label>1 star</label>
+                      <?php } ?>
+                      <?php for($i = 1;$i<= round($rating);$i++){ ?>
+                        <label style="color:yellow">1 star</label>
+                      <?php } ?>
+                   </div>
+                     &nbsp;<small><?php echo $rating . '.'.$rating2;?> (<?php echo $ratingUsers;?>)</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="<?php echo base_url();?>show-course/<?php echo $course['course_name'];?>" class="btn btn-sm btn-outline-secondary">Take Course</a>
@@ -100,8 +167,8 @@ b, strong {
            Go at your own pace with lifetime access
          </p>
           <h4 style="color:#FFF">Learn anytime, anywhere</h4>
-         <a href="../../components/navbar/" role="button"><img src="./assets/img/playicon.png" width="150px" /></a>
-         <a href="../../components/navbar/" role="button"><img src="./assets/img/apple.png" width="170px"/></a>
+         <a href="https://play.google.com/store/apps/details?id=com.course2quiz.android" target="blank_" role="button"><img src="./assets/img/playicon.png" width="150px" /></a>
+         <a href="https://itunes.apple.com/in/app/course2quiz/id577476493" target="blank_" role="button"><img src="./assets/img/apple.png" width="170px"/></a>
        </div>
      </div>
 <br><br>

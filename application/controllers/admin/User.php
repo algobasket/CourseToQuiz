@@ -15,7 +15,7 @@ class User extends Base
 
     // Load Models
     $this->load->model('user_model');
-
+    $this->load->helper('common');
   }
 
   function index(){

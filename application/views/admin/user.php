@@ -30,7 +30,7 @@
                     <th><?php echo $item['rolename'];?></th>
                     <th><?php echo $item['created'];?></th>
                     <th><?php echo $item['updated'];?></th>
-                    <th><?php echo $item['status'];?></th>
+                    <th class="<?php echo getStatusBgClassName($item['status']);?>"><?php echo getStatusName($item['status']);?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/user/update_user/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/user/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
