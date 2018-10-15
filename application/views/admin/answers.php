@@ -2,14 +2,20 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <br><br>
+
          <?php if($section == "list"){ ?>
-          <h2>Answers <a href="<?php echo base_url();?>admin/answer/create_answer" class="btn btn-secondary btn-sm float-right">Create New</a></h2>
+
+          <div class="alert alert-dark" role="alert">
+            <h5>Answers <a href="<?php echo base_url();?>admin/answer/create_answer" class="btn btn-secondary btn-sm float-right">Create New</a></h5>
+         </div>
+            <?php echo $this->session->flashdata('alert');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
-              <thead>
+              <thead class="thead-dark">
                 <tr>
                     <th>#</th>
-                    <th>Answer</th>
+                    <th>Answer Option</th>
+                    <th>Is Correct</th>
                     <th>Question</th>
                     <th>Created</th>
                     <th>Updated</th>
@@ -18,36 +24,40 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($list as $key => $item){ ?>
+                <?php $i = 1;foreach($list as $key => $item){ ?>
                   <tr>
-                    <th><?php echo $key ;?></th>
+                    <th><?php echo $i ;?></th>
                     <th><?php echo $item['option_title'];?></th>
+                    <th class="text-center <?php echo getStatusBgClassName($item['is_answer']);?>"><?php echo ($item['is_answer'] == 1) ? "Yes" : "No";?></th>
                     <th><?php echo $item['question_title'];?></th>
                     <th><?php echo $item['created'];?></th>
                     <th><?php echo $item['updated'];?></th>
-                    <th><?php echo $item['status'];?></th>
+                    <th class="<?php echo getStatusBgClassName($item['status']);?> text-center"><?php echo ucfirst(getStatusName($item['status']));?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/answer/update_answer/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/answer/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
                     </th>
                   </tr>
-                <?php } ?>
+                <?php $i++;} ?>
               </tbody>
             </table>
           </div>
         <?php }elseif($section == "create"){ ?>
-          <h2>Create Answer</h2>
+          <div class="alert alert-dark" role="alert">
+            <h5>Create Answer</h5>
+         </div>
+            <?php echo $this->session->flashdata('alert');?>
           <?php echo form_open('admin/answer/create_answer');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
-                <tr>
+                <!-- <tr>
                     <th>Answer</th>
                     <th><input type="text" placeholder="Answer Title" name="title" class="form-control" required /></th>
-               </tr>
+               </tr> -->
                <tr>
                     <th>Question</th>
                     <th>
-                      <select name="category_id" class="form-control">
+                      <select name="question_id" class="form-control">
                            <option disabled selected>Select Question</option>
                         <?php foreach($question as $q){ ?>
                            <option value="<?php echo $q['id'];?>"><?php echo $q['question_title'];?></option>
@@ -86,7 +96,12 @@
                          Specific Options : <input type="radio" name="option_type" value="specific"/>
                     </th>
                </tr>
-
+               <tr>
+                    <th>Is Answer</th>
+                    <th>
+                     <input type="checkbox" name="is_answer" /> (If this answer is correct then check)
+                    </th>
+               </tr>
                 <tr>
                      <th>Status</th>
                     <th>
@@ -99,47 +114,36 @@
                  <tr>
                       <th></th>
                      <th>
-                      <input type="submit" name="create" value="Create Only Question" class="btn btn-primary btn-sm" />
-                      <input type="submit" name="create_answer" value="Create Question With Answers" class="btn btn-primary btn-sm" />
+                      <input type="submit" name="create_answer" value="Create Answer Option" class="btn btn-primary btn-sm" />
+
                      </th>
                   </tr>
             </table>
           </div>
           <?php echo form_close();?>
         <?php }elseif($section == "update"){ ?>
-          <h2>Update Question</h2>
-          <?php echo form_open('admin/question/update_question/'.$this->uri->segment(4));?>
+          <div class="alert alert-dark" role="alert">
+            <h5>Update Answer</h5>
+         </div>
+            <?php echo $this->session->flashdata('alert');?>
+          <?php echo form_open('admin/answer/update_answer/'.$this->uri->segment(4));?>
           <div class="table-responsive">
             <?php foreach($one as $item){ } ?>
             <table class="table table-striped table-sm">
                 <tr>
                     <th>Question</th>
-                    <th><input type="text" value="<?php echo $item['question_title'];?>" class="form-control" /></th>
+                    <th><h4><?php echo $item['question_title'];?></h4></th>
                </tr>
                <tr>
-                    <th>Category</th>
+                    <th>Option Title</th>
                     <th>
-                      <select name="category_id" class="form-control">
-                           <option disabled selected>Select Category</option>
-                        <?php foreach($category as $c){
-                            $select_c = ($item['category_id'] == $c['id']) ? "selected" : "";
-                        ?>
-                           <option value="<?php echo $c['id'];?>" <?php echo $select_c ;?>><?php echo $c['category_title'];?></option>
-                        <?php } ?>
-                      </select>
+                      <input type="text" name="title" value="<?php echo $item['option_title'];?>" class="form-control" />
                     </th>
                </tr>
                <tr>
-                    <th>Course</th>
+                    <th>Is Answer</th>
                     <th>
-                      <select name="course_id" class="form-control">
-                           <option disabled selected>Select Course</option>
-                        <?php foreach($courses as $course){
-                            $select_c2 = ($item['course_id'] == $course['id']) ? "selected" : "";
-                        ?>
-                           <option value="<?php echo $course['id'];?>" <?php echo $select_c2 ;?> ><?php echo $course['course_title'];?></option>
-                        <?php } ?>
-                      </select>
+                     <input type="checkbox" name="is_answer" <?php echo ($item['is_answer'] == 1) ? "checked" : "";?> />
                     </th>
                </tr>
                 <tr>

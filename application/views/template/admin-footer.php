@@ -27,7 +27,8 @@
    <script>
      feather.replace()
    </script>
-
+   <!-- Custom SCript -->
+    <script src="<?php echo base_url();?>assets/js/script.js"></script>  
    <!-- Graphs -->
    <script src="<?php echo base_url();?>assets/js/chart.js"></script>
    <script>
@@ -59,5 +60,6 @@
        }
      });
    </script>
+
  </body>
 </html>

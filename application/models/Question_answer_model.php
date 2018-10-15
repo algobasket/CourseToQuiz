@@ -38,6 +38,7 @@ class Question_answer_model extends CI_Model{
       $q = $this->db->select('options.*,questions.question_title')
                     ->from('options')
                     ->join('questions','questions.id = options.question_id','left')
+                    ->order_by('options.question_id','ASC')
                     ->get();
     return $q->result_array();
     }
@@ -46,8 +47,9 @@ class Question_answer_model extends CI_Model{
       $q = $this->db->select('options.*,questions.question_title')
                     ->from('options')
                     ->join('questions','questions.id = options.question_id','left')
-                    ->where('questions.id',$id)
+                    ->where('options.id',$id)
                     ->get();
+       //echo $this->db->last_query();
     return $q->result_array();
     }
 

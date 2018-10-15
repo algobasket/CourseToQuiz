@@ -21,7 +21,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($list as $key => $item){ ?>
+                <?php $i = 1;foreach($list as $key => $item){ ?>
                   <tr>
                     <th><?php echo $key ;?></th>
                     <th><?php echo $item['first_name'].' '.$item['last_name'];?></th>
@@ -30,13 +30,13 @@
                     <th><?php echo $item['rolename'];?></th>
                     <th><?php echo $item['created'];?></th>
                     <th><?php echo $item['updated'];?></th>
-                    <th class="<?php echo getStatusBgClassName($item['status']);?>"><?php echo getStatusName($item['status']);?></th>
+                    <th class="<?php echo getStatusBgClassName($item['status']);?> text-center"><?php echo ucfirst(getStatusName($item['status']));?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/user/update_user/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/user/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
                     </th>
                   </tr>
-                <?php } ?>
+                <?php $i++;} ?>
               </tbody>
             </table>
           </div>

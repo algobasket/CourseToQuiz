@@ -3,25 +3,28 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <br><br>
          <?php if($section == "list"){ ?>
-          <h2>Courses <a href="<?php echo base_url();?>admin/courses/create_course" class="btn btn-secondary btn-sm float-right">Create New</a></h2>
+          <div class="alert alert-dark" role="alert">
+            <h4>Courses <a href="<?php echo base_url();?>admin/courses/create_course" class="btn btn-secondary btn-sm float-right">Create New</a></h4>
+         </div>
           <?php echo $this->session->flashdata('alert');?>
+
           <div class="table-responsive">
             <table class="table table-striped table-sm">
-              <thead>
+              <thead class="thead-dark">
                 <tr>
-                    <th>#</th>
-                    <th>Course Title</th>
-                    <th>Course Name</th>
-                    <th>Category</th>
-                    <th>Created</th>
-                    <th>Status</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Course Title</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Status</th>
                     <th></th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($list as $key => $item){ ?>
+                <?php $i = 1;foreach($list as $key => $item){ ?>
                   <tr>
-                    <th><?php echo $key ;?></th>
+                    <th><?php echo $i  ;?></th>
                     <th><?php echo $item['course_title'];?></th>
                     <th><?php echo $item['course_name'];?></th>
                     <th><?php echo $item['category_title'];?></th>
@@ -32,12 +35,14 @@
                       <a href="<?php echo base_url();?>admin/courses/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
                     </th>
                   </tr>
-                <?php } ?>
+                <?php $i++ ;} ?>
               </tbody>
             </table>
           </div>
         <?php }elseif($section == "create"){ ?>
-          <h2>Create Course</h2>
+          <div class="alert alert-dark" role="alert">
+            <h4>Create Course</h4>
+         </div>
           <?php echo form_open_multipart('admin/courses/create_course');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -90,7 +95,9 @@
           </div>
           <?php echo form_close();?>
         <?php }elseif($section == "update"){ ?>
-          <h2>Update Course <a href="<?php echo base_url();?>admin/courses/update_course_detail/<?php echo $this->uri->segment(4);?>" class="btn btn-primary btn-sm float-right">Update Course Detail</a></h2>
+          <div class="alert alert-dark" role="alert">
+            <h4>Update Course <a href="<?php echo base_url();?>admin/courses/update_course_detail/<?php echo $this->uri->segment(4);?>/chapter_video" class="btn btn-primary btn-sm float-right">Update Course Detail</a></h4>
+         </div>
           <?php echo form_open_multipart('admin/courses/update_course/'.$this->uri->segment(4));?>
           <div class="table-responsive">
             <?php foreach($one as $item){ } ?>

@@ -43,7 +43,7 @@ class Courses extends Base
            $this->load->library('upload', $config);
            $file = $this->upload->do_upload('image_link_raw');
            if( ! $file){
-             $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+             $this->session->set_flashdata('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
            }else{
              $upload = $this->upload->data();
              $config_manip = array(
@@ -59,7 +59,7 @@ class Courses extends Base
               $file_name = $upload['file_name'];
               $this->load->library('image_lib', $config_manip);
               if (!$this->image_lib->resize()) {
-                   $this->uri->segment('alert','<div class="alert alert-danger">'.$this->image_lib->display_errors().'</div>');
+                   $this->session->set_flashdata('alert','<div class="alert alert-danger">'.$this->image_lib->display_errors().'</div>');
               }else{
                  $thumbnail = $upload['raw_name'].'_thumb'.$upload['file_ext'];
                  $image_link = base_url() . 'assets/img/course/' . $thumbnail;
@@ -116,7 +116,7 @@ class Courses extends Base
                $this->load->library('upload', $config);
                $file = $this->upload->do_upload('image_link_raw');
                if( ! $file){
-                 $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+                 $this->session->set_flashdata('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
                }else{
                  $upload = $this->upload->data();
                  $config_manip = array(
@@ -174,6 +174,111 @@ class Courses extends Base
        $this->remove('course',['id' => $this->uri->segment(4)]);
        redirect('admin/courses');
   }
+
+  /****** Update Course Detail********/
+
+  function update_course_detail(){
+    if($this->input->post('edit')){
+      $config['upload_path']          = './upload/course/';
+      $config['allowed_types']        = 'docx|pdf|doc';
+      $config['max_size']             = 10000;
+      $this->load->library('upload', $config);
+      $file = $this->upload->do_upload('attachment');
+      $uploadData = [
+        'course_id'     => $this->uri->segment(4),
+        'chapter_title' => $this->input->post('title'),
+        'chapter_name'  => str_replace(' ','-',$this->input->post('title')),
+        'description'   => $this->input->post('description'),
+        'created' => date('d-m-Y h:i:s'),
+        'updated' => date('d-m-Y h:i:s'),
+        'status'  => $this->input->post('status')
+      ];
+      if( ! $file){
+        $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+      }else{
+           $upload = $this->upload->data();
+           $uploadData['attachments'] =  base_url() .'upload/course/'.$upload['file_name'];
+      }
+    $this->create('course_chapters',$uploadData);
+    $this->session->set_flashdata('alert','<div class="alert alert-success">New Chapter Added</div>');
+    redirect('admin/courses/update_course_detail/'.$this->uri->segment(4));
+  }
+  if($this->input->post('video_upload')){
+    $config['upload_path']          = './upload/course/';
+    $config['allowed_types']        = 'webm|mp4|flv|mpeg|mpg';
+    $config['max_size']             = 10000;
+    $this->load->library('upload', $config);
+    $file = $this->upload->do_upload('video_file');
+    $uploadData = [
+      'course_id'   => $this->uri->segment(4),
+      'video_title' => $this->input->post('title'),
+      'created' => date('d-m-Y h:i:s'),
+      'updated' => date('d-m-Y h:i:s'),
+      'status'  => $this->input->post('status')
+    ];
+    if( ! $file){
+      $this->session->set_flashdata('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+    }else{
+         $upload = $this->upload->data();
+         $uploadData['file_name'] =  base_url() .'upload/course/'.$upload['file_name'];
+    }
+    if($this->input->post('video_link_ex')){
+        $uploadData['external_link'] =  $this->input->post('video_link_ex');
+    }
+    $this->create('course_videos',$uploadData);
+    $this->session->set_flashdata('alert','<div class="alert alert-success">New Video Added</div>');
+    redirect('admin/courses/update_course_detail/'.$this->uri->segment(4));
+  }
+     $moreData = array();
+    if($this->uri->segment(5) == "chapter_video")
+    {
+      $moreData['chapters'] = $this->all('course_chapters');
+      $moreData['videos']   = $this->all('course_videos');
+    }
+
+    if($this->uri->segment(5) == "edit_chapter")
+    {
+      if($this->input->post('edit_chapter')){
+        $updateData = [
+          'chapter_title' => $this->input->post('title'),
+          'chapter_name' => str_replace(' ','-',$this->input->post('title')),
+          'description' => $this->input->post('description'),
+          'updated' => date('d-m-Y h:i:s'),
+          'status' => $this->input->post('status')
+        ];
+        $config['upload_path']          = './upload/course/';
+        $config['allowed_types']        = 'docx|pdf|doc';
+        $config['max_size']             = 10000;
+        $this->load->library('upload', $config);
+        $file = $this->upload->do_upload('attachment');
+        if( ! $file){
+          $this->uri->segment('alert','<div class="alert alert-danger">'.$this->upload->display_errors().'</div>');
+        }else{
+             $upload = $this->upload->data();
+             $updateData['attachments'] =  base_url() .'upload/course/'.$upload['file_name'];
+        }
+        $this->update('course_chapters',['id' => $this->uri->segment(6)],$updateData);
+        $this->session->set_flashdata('alert','<div class="alert alert-success">Chapter Updated</div>');
+        redirect('admin/courses/update_course_detail/'.$this->uri->segment(6)."/"."edit_chapter/".$this->uri->segment(6));
+      }
+      $moreData['chapters'] = $this->one('course_chapters',['id' => $this->uri->segment(6)]);
+    }
+    if($this->uri->segment(5) == "edit_video")
+    {
+      $moreData['videos']   = $this->all('course_videos',['id' => $this->uri->segment(6)]);
+    }
+    $this->page(array_merge([
+      'section' => $this->uri->segment(5),
+      'page' => 'admin/course_detail',
+      'one' => $this->one('course',['id' => $this->uri->segment(4)])
+    ],$moreData));
+  }
+
+
+
+
+
+
 
 }
 ?>

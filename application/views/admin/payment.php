@@ -8,7 +8,7 @@
    </div>
    <?php echo $this->session->flashdata('alert');?>
    <div class="container">
-     <table class="table">
+     <table class="table table-striped table-sm">
        <thead class="thead-dark">
        <tr>
          <th scope="col">#</th>

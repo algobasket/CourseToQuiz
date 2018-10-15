@@ -1,12 +1,14 @@
 
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <br><br>
+         <br><br>
          <?php if($section == "list"){ ?>
-          <h2>Quiz <a href="<?php echo base_url();?>admin/quiz/create_quiz" class="btn btn-secondary btn-sm float-right">Create New</a></h2>
+
+          <div class="alert alert-dark" role="alert">
+            <h5>Quiz <a href="<?php echo base_url();?>admin/quiz/create_quiz" class="btn btn-secondary btn-sm float-right">Create New</a></h5>
+         </div>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
-              <thead>
+              <thead class="thead-dark">
                 <tr>
                     <th>#</th>
                     <th>Quiz Title</th>
@@ -36,7 +38,9 @@
             </table>
           </div>
         <?php }elseif($section == "create"){ ?>
-          <h2>Create Quiz</h2>
+          <div class="alert alert-dark" role="alert">
+            <h5>Create Quiz</h5>
+         </div>
           <?php echo form_open('admin/quiz/create_quiz');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -78,7 +82,9 @@
           </div>
           <?php echo form_close();?>
         <?php }elseif($section == "update"){ ?>
-          <h2>Update Quiz</h2>
+          <div class="alert alert-dark" role="alert">
+            <h5>Update Quiz</h5>
+         </div>
           <?php echo form_open('admin/quiz/update_quiz/'.$this->uri->segment(4));?>
           <div class="table-responsive">
             <?php foreach($one as $item){ } ?>

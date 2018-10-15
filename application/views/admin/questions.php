@@ -3,7 +3,11 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <br><br>
          <?php if($section == "list"){ ?>
-          <h2>Questions <a href="<?php echo base_url();?>admin/question/create_question" class="btn btn-secondary btn-sm float-right">Create New</a></h2>
+
+          <div class="alert alert-dark" role="alert">
+            <h5>Questions <a href="<?php echo base_url();?>admin/question/create_question" class="btn btn-secondary btn-sm float-right">Create New</a></h5>
+         </div>
+         <?php echo $this->session->flashdata('alert');?>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
@@ -19,21 +23,21 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($list as $key => $item){ ?>
+                <?php $i=1;foreach($list as $key => $item){ ?>
                   <tr>
-                    <th><?php echo $key ;?></th>
+                    <th><?php echo $i ;?></th>
                     <th><?php echo $item['question_title'];?></th>
                     <th><?php echo $item['category_title'];?></th>
-                    <th><?php echo $item['real_or_test'];?></th>
+                    <th><?php echo ($item['real_or_test'] == 1) ? "Real" : "Test";?></th>
                     <th><?php echo $item['created'];?></th>
                     <th><?php echo $item['updated'];?></th>
-                    <th><?php echo $item['status'];?></th>
+                    <th class="text-center <?php echo getStatusBgClassName($item['status']);?>"><?php echo getStatusName($item['status']);?></th>
                     <th>
                       <a href="<?php echo base_url();?>admin/question/update_question/<?php echo $item['id'];?>" class="btn btn-primary btn-sm">U</a>
                       <a href="<?php echo base_url();?>admin/question/delete/<?php echo $item['id'];?>" class="btn btn-danger btn-sm">D</a>
                     </th>
                   </tr>
-                <?php } ?>
+                <?php $i++;} ?>
               </tbody>
             </table>
           </div>
@@ -91,8 +95,8 @@
                     <th>Real or test</th>
                    <th>
                       <select class="form-control" name="real_or_test">
-                        <option value="real"  >Real Quiz Question</option>
-                        <option value="practise" >Practise Quiz Question</option>
+                        <option value="1"  >Real Quiz Question</option>
+                        <option value="0" >Practise Quiz Question</option>
                       </select>
                    </th>
                 </tr>
@@ -123,7 +127,7 @@
             <table class="table table-striped table-sm">
                 <tr>
                     <th>Question</th>
-                    <th><input type="text" value="<?php echo $item['question_title'];?>" class="form-control" /></th>
+                    <th><input type="text" name="title" value="<?php echo $item['question_title'];?>" class="form-control" /></th>
                </tr>
                <tr>
                     <th>Category</th>
@@ -149,6 +153,13 @@
                            <option value="<?php echo $course['id'];?>" <?php echo $select_c2 ;?> ><?php echo $course['course_title'];?></option>
                         <?php } ?>
                       </select>
+                    </th>
+               </tr>
+               <tr>
+                    <th>Real Or Test</th>
+                    <th>
+                     <input type="checkbox" name="real_or_test" <?php echo ($item['real_or_test'] == 1) ? "checked" : "";?> />
+                     <small>Check for real</small>
                     </th>
                </tr>
                 <tr>

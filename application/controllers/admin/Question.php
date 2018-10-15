@@ -15,7 +15,7 @@ class Question extends Base
 
     // Load Models
     $this->load->model('question_answer_model');
-
+    $this->load->helper('common');
   }
 
   function index(){
@@ -33,17 +33,18 @@ class Question extends Base
     if($this->input->post('update')){
         $output = $this->update('questions',['id' => $this->uri->segment(4)],[
           'question_title' => $this->input->post('title'),
-          'question_name'  => $this->input->post('title'),
+          'question_name'  => str_replace(' ','-',$this->input->post('title')),
           'category_id'    => $this->input->post('category_id'),
           'course_id'      => $this->input->post('course_id'),
           'option_type'    => $this->input->post('option_type'),
           'level'          => $this->input->post('level'),
-          'real_or_test'   => $this->input->post('real_or_test'),
+          'real_or_test'   => ($this->input->post('real_or_test') == "on") ? 1 : 0,
           'updated'        => date('d-m-Y h:i:s'),
           'status'         => $this->input->post('status')
         ]);
         if($output == true){
            $this->session->set_flashdata('alert','<div class="alert alert-success">Question Updated</div>');
+           redirect('admin/question');
         }
     }
     $this->page([
@@ -105,7 +106,8 @@ class Question extends Base
 
   function delete(){
        $this->remove('questions',['id' => $this->uri->segment(4)]);
-       redirect('admin/questions');
+        $this->session->set_flashdata('alert','<div class="alert alert-danger">Question Deleted</div>');
+       redirect('admin/question');
   }
 
 }

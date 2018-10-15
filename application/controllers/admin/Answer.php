@@ -15,7 +15,7 @@ class Answer extends Base
 
     // Load Models
     $this->load->model('question_answer_model');
-
+    $this->load->helper('common');
   }
 
   function index(){
@@ -32,17 +32,18 @@ class Answer extends Base
   function update_answer(){
     if($this->input->post('update')){
         $output = $this->update('options',['id' => $this->uri->segment(4)],[
-          'question_id'    => $this->input->post('question_id'),
-          'option_title'   => $this->input->post('answer'),
-          'option_name'    => str_replace(' ','-',$this->input->post('answer')),
-          'created'        => date('d-m-Y h:i:s'),
+          'option_title'   => $this->input->post('title'),
+          'option_name'    => str_replace(' ','-',$this->input->post('title')),
+          'is_answer'      => ($this->input->post('is_answer') == "on") ? 1 : 0,
           'updated'        => date('d-m-Y h:i:s'),
-          'status'         => 1
+          'status'         => $this->input->post('status')
         ]);
         if($output == true){
            $this->session->set_flashdata('alert','<div class="alert alert-success">Answer Updated</div>');
+           redirect('admin/answer');
         }
     }
+    //die(print_r($this->question_answer_model->getOneAnswer($this->uri->segment(4))));
     $this->page([
       'section'   => 'update',
       'page'      => 'admin/answers',
@@ -60,7 +61,7 @@ class Answer extends Base
           'question_id'    => $this->input->post('question_id'),
           'option_title'   => $this->input->post('answer'),
           'option_name'    => str_replace(' ','-',$this->input->post('answer')),
-          'is_answer'      => 1,
+          'is_answer'      => ($this->input->post('is_answer') == "on") ? 1 : 0,
           'created'        => date('d-m-Y h:i:s'),
           'updated'        => date('d-m-Y h:i:s'),
           'status'         => 1
