@@ -94,12 +94,15 @@ b, strong {
       <div class="container">
         <div class="row">
         <div class="col-md-4 text-center how_works_text">
-           <b><i class="fa fa-podcast fa-3x" style="position:relative;line-height:80px;float:left;"></i> <big style="margin-right:90px">80+ online courses</big></b>
+           <b><i class="fa fa-podcast fa-3x" style="position:relative;line-height:80px;float:left;"></i>
+             <big style="margin-right:90px"><?php echo $total_course;?>+ online courses</big></b>
        </div>
         <div class="col-md-4 text-center how_works_text">
-          <b><i class="fa fa-code fa-3x" style="position:relative;line-height:80px;float:left;margin-left:90px"></i> <big style="margin-right:90px">67+ Quiz </big></b></div>
+          <b><i class="fa fa-code fa-3x" style="position:relative;line-height:80px;float:left;margin-left:90px"></i>
+            <big style="margin-right:90px"><?php echo $total_quiz;?>+ Quiz </big></b></div>
         <div class="col-md-4 text-center how_works_text">
-          <b><i class="fa fa-connectdevelop fa-3x" style="position:relative;line-height:80px;float:left;margin-left:90px"></i> <big style="margin-right:60px">78+ Member </big></b>
+          <b><i class="fa fa-connectdevelop fa-3x" style="position:relative;line-height:80px;float:left;margin-left:90px"></i>
+             <big style="margin-right:60px"><?php echo $total_member;?>+ Member </big></b>
         </div>
       </div>
       </div>
@@ -118,7 +121,7 @@ b, strong {
           <div class="row">
 
            <?php foreach($courses as $course) : ?>
-             <?php $image_link = ($course['is_google_autoload'] == 1) ? imageSearch("udemy+HD+".$course['course_name']) : $course['image_link'];?>
+            <?php $image_link = ($course['is_google_autoload'] == 1) ? imageSearch("udemy+HD+".$course['course_name']) : $course['image_link'];?>
             <div class="col-md-3">
               <div class="card mb-3 box-shadow">
                 <img class="card-img-top" height="135" src="<?php echo $image_link;?>" data-src="holder.js/100px135?theme=thumb&bg=af4456&fg=eceeef&text=<?php echo $course['course_title'];?>" alt="Card image cap">
@@ -139,7 +142,11 @@ b, strong {
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="<?php echo base_url();?>show-course/<?php echo $course['course_name'];?>" class="btn btn-sm btn-outline-secondary">Take Course</a>
-                      <a href="<?php echo base_url();?>show-quiz/<?php echo $course['course_name'];?>" class="btn btn-sm btn-info">Take Quiz</a>
+                       <?php if(isCourseQuizAvailable($course['id']) == true){ ?>
+                         <a href="<?php echo base_url();?>show-quiz/<?php echo $course['course_name'];?>" class="btn btn-sm btn-success">Take Quiz <i class="fa fa-search"></i></a>
+                       <?php }else{ ?>
+                          <a href="#" class="btn btn-sm btn-dark">Quiz Not Available</a>
+                       <?php } ?>
                     </div>
                     <small class="text-muted"></small>
                   </div>

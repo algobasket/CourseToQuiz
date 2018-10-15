@@ -21,7 +21,7 @@
   <h5 class="card-header">QUIZ - <?php echo $course_title ;?></h5>
   <div class="card-body">
     <h3 class="card-title"><?php echo $course_title ;?><span class="float-right">Time 00:15:00</span></h3>
-    <h5> - 40 multiple choice questions</h5>
+    <h5> - <?php echo $total_questions;?> multiple choice questions available</h5>
     <h5> - 15 minutes test time</h5>
     <p class="card-text">
     <?php echo $r['course_description'];?>
@@ -33,7 +33,14 @@
        <option value="hard">Hard - Level Three</option>
        <option value="complex">Complex - Level Four</option>
      </select>
-    <h3 class="float-right">567 Quiz Taken</h3>
+
+     <h5>Select Number Of Questions</h5>
+     <select class="btn btn-outline-secondary btn-lg selectLevel">
+        <option disable>No Of Questions</option>
+        <?php for($i = 1;$i<= $total_questions;$i++) : ?>
+          <option value="<?php echo $i;?>"><?php echo $i;?></option>
+        <?php endfor ?>
+     </select>
   </div>
 </div>
 <br>

@@ -195,4 +195,13 @@ if( ! function_exists('getStatusBgClassName')){
     }
 }
 
+if( ! function_exists('isCourseQuizAvailable')){
+   function isCourseQuizAvailable($courseId){
+     $ci = get_instance();
+     $ci->load->model('quiz_model');
+     return $ci->quiz_model->isCourseQuizAvailable($courseId);
+   }
+}
+
+
  ?>

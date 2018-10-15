@@ -83,7 +83,8 @@ class Answer extends Base
   /****** Remove Answer ********/
 
   function delete(){
-       $this->remove('questions',['id' => $this->uri->segment(4)]);
+       $this->remove('options',['id' => $this->uri->segment(4)]);
+       $this->session->set_flashdata('alert','<div class="alert alert-danger">Answer Deleted</div>');
        redirect('admin/answer');
   }
 

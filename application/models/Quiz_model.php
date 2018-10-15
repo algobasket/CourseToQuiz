@@ -44,7 +44,7 @@ class Quiz_model extends CI_Model{
       //  print_r($questionData);die;
 
       foreach($questionData as $r)
-      $question_id = $r['id']; 
+      $question_id = $r['id'];
 
       $query2 = $this->db->select('options.*')
                          ->from('options')
@@ -64,13 +64,22 @@ class Quiz_model extends CI_Model{
       return array('questions' => $questionData ,'answers' => $totalAnswerData);
     }
 
+    function total_questions($courseName){
+       $course_id = $this->getCourseIdFromCourseName($courseName);
+       $query = $this->db->where('course_id',$course_id)->get('questions');
+       return $query->num_rows();
+    }
 
+    function isCourseQuizAvailable($courseId){
+      $query = $this->db->where('course_id',$courseId)->get('questions');
+      if($query->num_rows() > 0){
+        return true;
+      }
+    }
 
     function saveUserQuizData(){
 
     }
-
-
 
 }
  ?>

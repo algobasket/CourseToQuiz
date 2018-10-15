@@ -8,18 +8,20 @@
      $this->load->model('courses_model');
      $this->load->model('quiz_model');
      $this->load->model('crud_model');
+     $this->load->model('report_model');
      $this->load->helper('subscription');
      $this->load->helper('common');
    }
-
-
 
 
    function index(){
       $courses = $this->courses_model->trendingCoursesByCategory();
       $this->load->view('template/content',[
         'page' => 'landing',
-        'courses' => $courses
+        'courses' => $courses,
+        'total_course' => $this->report_model->total_course(),
+        'total_quiz' => $this->report_model->total_quiz(),
+        'total_member' => $this->report_model->total_user()
       ]);
    }
 
@@ -83,10 +85,11 @@
       if($this->uri->segment(2)){
          $course = $this->courses_model->oneCourseFromName($this->uri->segment(2));
       }
-      $this->load->view('template/content',[
+      $data['total_questions'] = $this->quiz_model->total_questions($this->uri->segment(2));
+      $this->load->view('template/content',array_merge([
         'page' => 'show-quiz',
         'course' => $course
-      ]);
+      ],$data));
    }
 
 
