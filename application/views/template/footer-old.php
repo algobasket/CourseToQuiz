@@ -94,71 +94,49 @@ Holder.addTheme("bright", {
 
 
 </script>
-<script src="<?php echo base_url();?>bower_components/easytimer.js/dist/easytimer.min.js"></script>
+
 <script>
 var starts = 0;
 var questionNo = 1;
 function getQuizContinue() {
+
     var currentCount = '<?php echo $this->session->userdata('noOfQuestions');?>';
-    var timer = new Timer();
-    var questions_hidden = $('.questions_hidden').val();
-    var answers_hidden   = $('.answers_hidden').val();
-    var choosen_answer_option_id = $('.chooseAnswer:checked').val();
-    if(questions_hidden && answers_hidden){
-       var postData = {
-         questions_hidden : questions_hidden,
-         answers_hidden   : answers_hidden,
-         choosen_answer_option_id : choosen_answer_option_id
-       }
-       $.post('<?php echo base_url();?>quiz/saveQuizEachQuestionAnswers',postData,function(data,status){
-           console.log(data);
-       });
+    if(starts == currentCount){
+      //var timerInterv = setInterval(doCountDown,0);
+      //doCountDown(timerInterv,currentCount);
+      $('.dynamicChanges').html('<div class="alert alert-success">Quiz Completed Successfully</div>').show();
     }
     $.post('<?php echo base_url();?>quiz/quizData',{"start" : starts,"questionNo":questionNo},function(data,status){
       $('.dynamicChanges').html(data).show();
       starts += 1;questionNo++;
-
-      if(starts > currentCount){
-        //alert(timer.getTimeValues().toString());
-        alert($('.RemainingQuizTimer').html());
-        var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform';
-        $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
-      }
-      timer.addEventListener('secondsUpdated', function (e) {
-          $('.RemainingQuizTimer').html(timer.getTimeValues().toString(['minutes','seconds']));
-      });
-      timer.addEventListener('targetAchieved', function (e) {
-         var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform';
-         $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
-     });
       if(starts == 1){
-        timer.start({countdown: true, startValues: {seconds: 900} ,target: {seconds: 0}});
-        $('.RemainingQuizTimer').html(timer.getTimeValues().toString(['minutes','seconds']));
+        var timerInterv = setInterval(doCountDown,1000);
+        doCountDown(timerInterv,currentCount);
       }
+
+
     });
 }
-function stopTimer(timer){
-  timer.stop();
+
+var mins=1;
+var secs = mins*60;
+//var timerInterv = setInterval(doCountDown,1000);
+var outMins,outSecs;
+function doCountDown(timerInterv,currentCount)
+{
+    --secs;
+    if (secs<=0)
+    { outMins=outSecs=0;
+    clearInterval(timerInterv);
+    return;
+    }
+    outMins = parseInt(secs/60);
+    outSecs = secs%60;
+    document.getElementById('RemainingQuizTimer').innerHTML="Remaining Time : "+outMins+":"+outSecs;
+    if(outMins == 0 && outSecs==1){
+      //window.location.href='https://google.com/';
+    }
 }
-// var mins=1;
-// var secs = mins*60;
-// //var timerInterv = setInterval(doCountDown,1000);
-// var outMins,outSecs;
-// function doCountDown(timerInterv,currentCount)
-// {
-//     --secs;
-//     if (secs<=0)
-//     { outMins=outSecs=0;
-//     clearInterval(timerInterv);
-//     return;
-//     }
-//     outMins = parseInt(secs/60);
-//     outSecs = secs%60;
-//     document.getElementById('RemainingQuizTimer').innerHTML="Remaining Time : "+outMins+":"+outSecs;
-//     if(outMins == 0 && outSecs==1){
-//       //window.location.href='https://google.com/';
-//     }
-// }
 </script>
 </body>
 </html>

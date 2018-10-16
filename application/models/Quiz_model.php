@@ -77,6 +77,15 @@ class Quiz_model extends CI_Model{
       }
     }
 
+    function isCorrectOption($optionId){
+       $query = $this->db->where(array('id' => $optionId,'is_answer' => 1))->get('options');
+       if($query->num_rows() == 1){
+         return 1;
+       }else{
+         return 0;
+       }
+    }
+
     function saveUserQuizData(){
 
     }

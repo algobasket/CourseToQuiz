@@ -11,17 +11,7 @@
   <br>
   <div class="row">
   <div class="col-md-3">
-    <ul class="list-group">
-     <li class="list-group-item alert-info"><h4>Dashboard</h4></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>courses">Browse All Course<br><small>45+ courses available</small></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>quiz">Take Quiz <br><small>76+ quiz available</small><span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-course">My Course <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-quiz">My Quiz <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-exam">Take Exams <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-certification">Certification <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>bookmark">Bookmarks <span class="badge badge-info float-right">45</span></li>
-
-    </ul>
+      <?php $this->load->view('sidebar');?>
     <br><br>
   </div>
   <div class="col-md-9">

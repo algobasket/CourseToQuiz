@@ -101,17 +101,32 @@
      }
      $this->session->unset_userdata('redirectAfterLogin');
      // Starting Quiz
+     $quiz_session_id = md5(rand(1,9999).time());
      $quizData = [
+       'quiz_session_id' => $quiz_session_id,
        'level'    => $_GET['level'],
        'course'   => $_GET['course'],
-       'quizType' => $_GET['QuizType']
+       'quizType' => $_GET['QuizType'],
+       'noOfQuestions' => $_GET['noOfQuestions']
      ];
      $this->session->set_userdata($quizData);
+     $this->crud_model->create('quiz',[
+       'quiz_session_id' => $quiz_session_id,
+       'quiz_title' => 'quiz started',
+       'quiz_name'  => 'quiz-started',
+       'user_id'    => $this->session->userdata('userId'),
+       'course_id'  => $this->quiz_model->getCourseIdFromCourseName($_GET['course']),
+       'jsonData'   => json_encode($quizData,true),
+       'created'    => date('d-m-Y h:i:s'),
+       'updated'    => date('d-m-Y h:i:s'),
+       'status'     => 1
+     ]);
+
      $this->load->view('template/content',[
        'page'      => 'start-quiz',
        'quizData'  => $quizData,
        'quizDuration' => 15,
-       'totalQuestions'  => 30
+       'totalQuestions'  => $_GET['noOfQuestions']
      ]);
    }
 

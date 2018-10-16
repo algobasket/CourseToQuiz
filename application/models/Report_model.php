@@ -75,5 +75,23 @@ class Report_model extends CI_Model{
      $query = $this->db->where('status',6)->get('payment');
      return $query->num_rows();
   }
+
+  // QUiz
+  function quiz_taken(){
+    $query = $this->db->where([
+      'status'  => 1,
+      'user_id' => $this->session->userdata('userId')
+      ])->get('quiz');
+    return $query->num_rows();
+  }
+
+  function course_taken(){
+    $query = $this->db->where([
+      'status'  => 1,
+      'user_id' => $this->session->userdata('userId')
+      ])->get('user_course');
+    return $query->num_rows();
+  }
+
 }
  ?>

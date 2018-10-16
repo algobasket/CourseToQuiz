@@ -35,7 +35,7 @@
      </select>
 
      <h5>Select Number Of Questions</h5>
-     <select class="btn btn-outline-secondary btn-lg selectLevel">
+     <select class="btn btn-outline-secondary btn-lg selectLevel no_of_questions" name="no_of_questions">
         <option disable>No Of Questions</option>
         <?php for($i = 1;$i<= $total_questions;$i++) : ?>
           <option value="<?php echo $i;?>"><?php echo $i;?></option>
@@ -46,7 +46,7 @@
 <br>
   <?php
   if($this->session->userdata('userId')){
-    if(hasSubscription() == true){
+    if(hasSubscription($this->session->userdata('userId')) == true){
       $popupDiv = "QuizReadyConfirmation";
     }else{
       $popupDiv = "SubscriptionPopup";
@@ -63,7 +63,7 @@
    <div class="card-body">
      <h5 class="card-title">Real Quiz on <?php echo $course_title ;?></h5>
      <p class="card-text">After taking this live quiz you will get certified and you score will be stored</p>
-     <a href="javascript:void(0)" data-quiztype="real"  class="btn btn-success QuizReadyConfirmation">Start Real Quiz</a>
+     <a href="javascript:void(0)" data-quiztype="1"  class="btn btn-success QuizReadyConfirmation">Start Real Quiz</a>
      <span>&nbsp;&nbsp;&nbsp;Membership is required</span>
    </div>
  </div>
@@ -74,7 +74,7 @@
    <div class="card-body">
      <h5 class="card-title">Practise Quiz on <?php echo $course_title ;?></h5>
      <p class="card-text">Use this quiz option if you want to practise</p>
-     <a href="javascript:void(0)" data-quiztype="practise" class="btn btn-warning QuizReadyConfirmation">Go Test Quiz</a>
+     <a href="javascript:void(0)" data-quiztype="0" class="btn btn-warning QuizReadyConfirmation">Go Test Quiz</a>
    </div>
  </div>
 </div>
@@ -96,11 +96,12 @@
         </button>
       </div>
       <div class="modal-body">
-       <h3>Quiz - <?php echo $course_name;?> <img src="<?php echo base_url();?>assets/img/quiz.png" width="80"/></h3>
+       <h4>Quiz About <?php echo $course_name;?> </h4>
+       <h5> - Time limit 15 min<br> - <span id="selectedQuestionCount"></span> Questions</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Not Right Now</button>
-        <a href="#" class="btn btn-primary confirmQuizLink">Yes,I'm ready</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Later</button>
+        <a href="#" class="btn btn-success confirmQuizLink">Yes,I'm ready</a>
       </div>
     </div>
   </div>

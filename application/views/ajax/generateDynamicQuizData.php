@@ -1,21 +1,25 @@
 <?php
 if(is_array($getQuizData) && isset($getQuizData)){
+  //print_r($getQuizData);die;
   $questions = $getQuizData['questions'];
-  $answers = $getQuizData['answers'];
+  $answers   = $getQuizData['answers'];
    foreach($questions as $question){};
 
  ?>
-<div class="row">
+ <textarea class="questions_hidden"><?php echo json_encode($questions,true);?></textarea>
+ <textarea class="answers_hidden"><?php echo json_encode($answers,true);?></textarea>
+
+<div class="row" data-questionId ="<?php echo $question['id'];?>">
   <h3>
    <label class="badge badge-primary">Question <?php echo $question_number;?></label> :
    <?php echo $question['question_title'];?>
-</h3>
+ </h3>
 </div>
 <div class="row" style="margin-left:140px">
    <?php foreach($answers as $ans){ ?>
     <div class="col-md-6">
       <label class="radio"> <?php echo $ans['option_title'];?>
-       <input type="radio" name="is_company">
+       <input type="radio" name="is_company" class="chooseAnswer" value="<?php echo $ans['id'];?>">
        <span class="checkround"></span>
      </label>
      </div>

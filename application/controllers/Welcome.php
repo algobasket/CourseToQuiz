@@ -8,6 +8,7 @@ class Welcome extends Base {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('welcome_model');
+		$this->load->model('report_model');
 	}
 
 	public function index()
@@ -30,9 +31,15 @@ class Welcome extends Base {
 	}
 
 	public function myQuiz(){
-    $this->page([
+    $data['reports'] = [
+      'total_course' => $this->report_model->total_course(),
+      'total_quiz' => $this->report_model->total_questions(),
+      'quiz_taken' => $this->report_model->quiz_taken(),
+      'course_taken' => $this->report_model->course_taken()
+    ];
+    $this->page(array_merge([
       'page' => 'quiz-taken'
-    ]);
+    ],$data));
 	}
 
 	public function myCourse(){

@@ -2,10 +2,16 @@
 if( ! function_exists('hasSubscription')){
   function hasSubscription($userId){
     $ci = get_instance();
-    $ci->load->model('Subscription');
-    $return = $ci->subscription->hasSubscription($userId);
+    $ci->load->model('subscription_model');
+    $return = $ci->subscription_model->hasSubscription($userId);
     return $return;
   }
+}
+
+if( ! function_exists('quizType')){
+   function quizType($typeId){
+     return ($typeId == 1) ? "<label class='badge badge-success'>Real</label>" : "<label class='badge badge-warning'>Test</label>";
+   }
 }
 
 

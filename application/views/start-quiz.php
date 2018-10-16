@@ -160,12 +160,12 @@
    <div class="row">
       <div class="col-md-4"><h4>Total Time : <?php echo $quizDuration;?></h4></div>
       <div class="col-md-4"><h4>Total Question : <?php echo $totalQuestions;?></h4></div>
-      <div class="col-md-4"><h4 id="RemainingQuizTimer">Remaining Time : <?php echo $quizDuration;?>:00</h4></div>
+      <div class="col-md-4"><h4>Remaining Time : <span class="RemainingQuizTimer"><?php echo $quizDuration;?>:00</span></h4></div>
    </div>
    <hr>
 
    <div class="dynamicChanges">
-      <center><h5>This is <?php echo $quizData['quizType'];?> quiz with <?php echo $quizData['level'];?> level</h5></center>
+      <center><h5>This is <?php echo quizType($quizData['quizType']);?> quiz with <?php echo $quizData['level'];?> level</h5></center>
       <br>
       <center><button class="btn btn-primary btn-lg" onclick="getQuizContinue()">Start Quiz</button></center>
        <br><br><br><br>

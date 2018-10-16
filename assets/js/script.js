@@ -3,4 +3,7 @@ $(document).ready(function(){
        $('.chapterDeletePop').modal('show');
        $('.modalDeleteLink').attr('href',$(this).data('delete'));
     });
+    $('.no_of_questions').change(function(){
+      $('#selectedQuestionCount').html($(this).val());
+    });
 });
