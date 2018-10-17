@@ -22,6 +22,7 @@ class Courses_model extends CI_Model{
     return $q->result_array();
     }
 
+
     function oneCourseFromName($name){
       $q = $this->db->select('course.*,category.category_title')
                     ->from('course')
@@ -68,6 +69,40 @@ class Courses_model extends CI_Model{
     return $q->result_array();
     }
 
+    function getCourseIdFromCourseName($courseName){
+       $query = $this->db->query('select id from course where course_name = ?',array($courseName));
+       return $query->result_array()[0]['id'];
+    }
+
+    function getCourseChapters($courseName){
+       $courseId = $this->getCourseIdFromCourseName($courseName);
+       $query = $this->db->select('course_chapters.*,status.status_name as statusName')
+                         ->from('course_chapters')
+                         ->join('status','status.id = course_chapters.status','left')
+                         ->where('course_chapters.course_id',$courseId)
+                         ->get();
+        return $query->result_array();
+    }
+
+    function getCourseVideos($courseName){
+       $courseId = $this->getCourseIdFromCourseName($courseName);
+       $query = $this->db->select('course_videos.*,status.status_name as statusName')
+                         ->from('course_videos')
+                         ->join('status','status.id = course_videos.status','left')
+                         ->where('course_videos.course_id',$courseId)
+                         ->get(); 
+        return $query->result_array();
+    }
+
+    function userCourse($userId){
+      $query = $this->db->select('course.*')
+                        ->from('user_course')
+                        ->join('course','course.id = user_course.course_id','left')
+                        ->join('status','status.id = user_course.status','left')
+                        ->where('user_course.user_id',$userId)
+                        ->get();
+       return $query->result_array();
+    }
 
 }
  ?>

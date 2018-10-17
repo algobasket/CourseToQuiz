@@ -203,5 +203,39 @@ if( ! function_exists('isCourseQuizAvailable')){
    }
 }
 
+if( ! function_exists('browseCourse')){
+   function browseCourse(){
+     $ci = get_instance();
+     $ci->load->model('report_model');
+     return [
+       'total_course' => $ci->report_model->total_course(),
+       'total_quiz'   => $ci->report_model->total_quiz()
+     ];
+   }
+}
+
+if( ! function_exists('getNoOfQuizInsideCategory')){
+   function getNoOfQuizInsideCategory($categoryId){
+     $ci = get_instance();
+     $ci->load->model('report_model');
+     return $ci->report_model->getNoOfQuizInsideCategory($categoryId);
+   }
+}
+
+if( ! function_exists('getNoOfCourseInsideCategory')){
+   function getNoOfCourseInsideCategory($categoryId){
+     $ci = get_instance();
+     $ci->load->model('report_model');
+     return $ci->report_model->getNoOfCourseInsideCategory($categoryId);
+   }
+}
+
+if( ! function_exists('courseSubscribers')){
+  function courseSubscribers($courseName){
+    $ci = get_instance();
+    $ci->load->model('report_model');
+    return $ci->quiz_model->courseSubscribers($courseName);
+  }
+}
 
  ?>

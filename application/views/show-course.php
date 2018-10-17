@@ -23,83 +23,69 @@
     <p class="card-text">
     <?php echo $r['course_description'];?>
     </p>
-    <a href="<?php echo base_url();?>cart/" class="btn btn-success">Buy this course - 99$</a>
-    <a href="" class="btn btn-info">Take Free Quiz</a>
-    <a href="" class="btn btn-danger">567 subscribers</a>
+
+    <?php if($isCourseForked == true) { ?>
+      <a href="#" class="btn btn-dark">Forked <i class="fa fa-check-circle"></i></a>
+    <?php }else{ ?>
+      <a href="<?php echo base_url();?>show-course/<?php echo $r['course_name'];?>/?action=fork" class="btn btn-dark"><i class="fa fa-plus"></i> Fork this course</a>
+    <?php } ?>
+
+    <?php if(isCourseQuizAvailable($r['id']) == true){ ?>
+       <a href="<?php echo base_url();?>show-quiz/<?php echo $r['course_name'];?>" class="btn btn-info">Take Free Quiz</a>
+     <?php } ?>
+     <a href="" class="btn btn-danger float-right"><?php echo $courseSubscribers;?> subscribers</a>
   </div>
 </div>
 <br>
  <h4>&nbsp;&nbsp;&nbsp;Course Description</h4>
 
  <div class="accordion" id="accordionExample">
+  <?php
+  if(is_array($courseChapters) && count($courseChapters) > 0){
+  $i=1;foreach($courseChapters as $key => $chapter){ ?>
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Chapter #1
+        <button class="btn btn-link" style="text-decoration:none;color:#000" type="button" data-toggle="collapse" data-target="#collapse<?php echo $key;?>" aria-expanded="true" aria-controls="collapse<?php echo $key;?>">
+          <h4>Chapter#<?php echo $i;?> - <?php echo $chapter['chapter_title'];?></h4>
         </button>
       </h5>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="collapse<?php echo $key;?>" class="collapse" aria-labelledby="heading<?php echo $key;?>" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+       <?php echo $chapter['description'];?>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Chapter #2
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Chapter #3
-        </button>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
+  <?php $i++;?>
+<?php } }else{ ?>
+<div class="alert alert-info text-center">No Chapter Available Yet</div>
+<?php } ?>
+
 </div>
  <br>
   <h4>&nbsp;&nbsp;&nbsp;Course Videos</h4>
   <div class="row">
-<div class="col-sm-6">
- <div class="card">
-   <div class="card-body">
-     <h5 class="card-title">Special title treatment</h5>
-     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-     <a href="#" class="btn btn-primary">Go somewhere</a>
-   </div>
- </div>
-</div>
-<div class="col-sm-6">
- <div class="card">
-   <div class="card-body">
-     <h5 class="card-title">Special title treatment</h5>
-     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-     <a href="#" class="btn btn-primary">Go somewhere</a>
-   </div>
- </div>
-</div>
+    <?php
+    if(is_array($courseVideos) && count($courseVideos) > 0){
+    $i=1;foreach($courseVideos as $key => $video){ ?>
+    <div class="col-sm-6">
+     <div class="card">
+       <div class="card-body">
+         <h5 class="card-title"><?php echo $video['video_title'];?></h5>
+         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+         <a href="#" class="btn btn-primary">Go Watch</a>
+       </div>
+     </div>
+    </div>
+    <?php $i++;?>
+  <?php } }else{ ?>
+    <div class="alert alert-info text-center">No Video Available Yet</div>
+  <?php } ?>
 </div>
 <br>
-<h3>Comments</h3>
+<h3>Discussion</h3>
 <div id="disqus_thread"></div>
 <script>
 

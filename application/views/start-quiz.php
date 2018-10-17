@@ -160,7 +160,7 @@
    <div class="row">
       <div class="col-md-4"><h4>Total Time : <?php echo $quizDuration;?></h4></div>
       <div class="col-md-4"><h4>Total Question : <?php echo $totalQuestions;?></h4></div>
-      <div class="col-md-4"><h4>Remaining Time : <span class="RemainingQuizTimer"><?php echo $quizDuration;?>:00</span></h4></div>
+      <div class="col-md-4"><h4>Remaining Time : <span class="RemainingQuizTimer"><?php echo $quizDuration;?></span></h4></div>
    </div>
    <hr>
 

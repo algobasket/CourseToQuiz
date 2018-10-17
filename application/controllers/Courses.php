@@ -8,13 +8,23 @@ class Courses extends Base {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('courses_model');
+    $this->load->model('report_model');
+    $this->load->helper('common');
+    $data['reports'] = [
+      'total_course' => $this->report_model->total_course(),
+      'total_quiz'   => $this->report_model->total_questions(),
+      'quiz_taken'   => $this->report_model->quiz_taken(),
+      'course_taken' => $this->report_model->course_taken()
+    ];
+    $this->common = $data;
 	}
 
 	public function index()
 	{
-		$this->page([
+    $data['courses'] = $this->courses_model->trendingCoursesByCategory();
+		$this->page(array_merge([
       'page' => 'course'
-    ]);
+    ],$this->common,$data));
 	}
 
   public function search(){
@@ -39,7 +49,5 @@ class Courses extends Base {
         echo '<li class="list-group-item">No Course Found</li>';
      }
   }
-
-
 
 }

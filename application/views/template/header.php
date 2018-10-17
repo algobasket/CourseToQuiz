@@ -18,6 +18,11 @@
     <!-- Custom css -->
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/vegas/vegas.min.css">
+    <style>
+      .btn{
+        border-radius:0 !important;
+      }
+    </style>
   </head>
 
   <body>

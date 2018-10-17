@@ -120,19 +120,37 @@ function getQuizContinue() {
 
       if(starts > currentCount){
         //alert(timer.getTimeValues().toString());
-        alert($('.RemainingQuizTimer').html());
-        var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform';
+        var remainingTime = $('.RemainingQuizTimer').html();
+        var minutes
+        var postData2 = {
+          no_of_questions_attempted : starts - 1,
+          time_started : "<?php echo quizTime()['quiz_time'];?>",
+          time_ended   :  remainingTime
+        }
+        $.post('<?php echo base_url();?>quiz/saveRemainingQuizTimer',postData2,function(data,status){
+            console.log(data);
+        });
+        var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform<br><a href="<?php echo base_url();?>/quiz" class="btn btn-success">Try More Quiz</a>';
         $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
+        window.setTimeout(function(){
+            // Move to a new location or you can do something else
+            window.location.href = "<?php echo base_url();?>/my-quiz";
+          }, 5000);
       }
       timer.addEventListener('secondsUpdated', function (e) {
           $('.RemainingQuizTimer').html(timer.getTimeValues().toString(['minutes','seconds']));
       });
       timer.addEventListener('targetAchieved', function (e) {
-         var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform';
+         var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform<br><a href="<?php echo base_url();?>/quiz" class="btn btn-success">Try More Quiz</a>';
          $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
+         window.setTimeout(function(){
+             // Move to a new location or you can do something else
+             window.location.href = "<?php echo base_url();?>/my-quiz";
+           }, 5000);
      });
       if(starts == 1){
-        timer.start({countdown: true, startValues: {seconds: 900} ,target: {seconds: 0}});
+        var totalInSeconds = "<?php echo quizTime()['totalInSeconds'];?>";
+        timer.start({countdown: true, startValues: {seconds: parseInt(totalInSeconds)} ,target: {seconds: 0}});
         $('.RemainingQuizTimer').html(timer.getTimeValues().toString(['minutes','seconds']));
       }
     });

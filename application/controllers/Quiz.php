@@ -10,13 +10,24 @@ class Quiz extends Base {
 		$this->load->model('welcome_model');
 		$this->load->model('quiz_model');
 		$this->load->model('crud_model');
+    $this->load->model('report_model');
+    $this->load->model('courses_model');
+    $this->load->helper('common');
+    $data['reports'] = [
+      'total_course' => $this->report_model->total_course(),
+      'total_quiz'   => $this->report_model->total_questions(),
+      'quiz_taken'   => $this->report_model->quiz_taken(),
+      'course_taken' => $this->report_model->course_taken()
+    ];
+    $this->common = $data;
 	}
 
 	public function index()
 	{
-		$this->page([
+    $data['courses'] = $this->courses_model->trendingCoursesByCategory();
+		$this->page(array_merge([
       'page' => 'quiz'
-    ]);
+    ],$this->common,$data));
 	}
 
   function saveQuizEachQuestionAnswers(){
@@ -38,6 +49,15 @@ class Quiz extends Base {
      $this->create('user_answers',$data);
   }
 
+  function saveRemainingQuizTimer(){
+      $this->update('quiz',['quiz_session_id' => $this->session->userdata('quiz_session_id')],[
+        'no_of_questions_attempted' => $this->input->post('no_of_questions_attempted'),
+        'time_started' => $this->input->post('time_started'),
+        'time_ended' => $this->input->post('time_ended')
+     ]);
+     return true;
+  }
+
 
   function quizData(){
       $data['getQuizData'] = $this->quiz_model->getQuizData($this->input->post('start'));
@@ -53,3 +73,4 @@ class Quiz extends Base {
 
 
 }
+?>

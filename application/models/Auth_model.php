@@ -41,6 +41,26 @@ class Auth_model extends CI_Model{
       return true;
     }
 
+
+    function currentUserPassword($userId,$encryptedPassword){
+       $query = $this->db->where(['id' => $userId,'password' =>$encryptedPassword ])->get('user');
+       if($query->num_rows() > 0){
+         return true;
+       }
+    }
+
+
+    public function isUsernameAvailable($username){
+       $query = $this->db->where('username',$username)->get('user');
+       return ($query->num_rows() > 0) ? true : false;
+    }
+
+
+    public function isEmailAvailable($email){
+       $query = $this->db->where('email',$email)->get('user');
+       return ($query->num_rows() > 0) ? true : false;
+    }
+
     // Get SocialOAuth Info
     function getSocialOAuth($where){
       $query = $this->db->select('user.*,userDetail.first_name,userDetail.last_name')

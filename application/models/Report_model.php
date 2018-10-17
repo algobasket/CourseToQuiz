@@ -55,6 +55,16 @@ class Report_model extends CI_Model{
      return $query->num_rows();
   }
 
+  function getNoOfQuizInsideCategory($catId){
+    $query = $this->db->where('category_id',$catId)->get('questions');
+    return $query->num_rows();
+  }
+
+  function getNoOfCourseInsideCategory($catId){
+    $query = $this->db->where('category_id',$catId)->get('course');
+    return $query->num_rows();
+  }
+
 
   // ***** Payment Reports  *******
 

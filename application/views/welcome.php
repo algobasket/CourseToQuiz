@@ -11,93 +11,51 @@
   <br>
   <div class="row">
   <div class="col-md-3">
-    <ul class="list-group">
-     <li class="list-group-item alert-info"><h4>Dashboard</h4></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>courses">Browse All Course<br><small>45+ courses available</small></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>quiz">Take Quiz <br><small>76+ quiz available</small><span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-course">My Course <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-quiz">My Quiz <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-exam">Take Exams <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>my-certification">Certification <span class="badge badge-info float-right">45</span></li>
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>bookmark">Bookmarks <span class="badge badge-info float-right">45</span></li>
-
-    </ul>
+    <?php $this->load->view('sidebar');?>
     <br><br>
   </div>
+
   <div class="col-md-9">
+    <div class="row">
+      <h3> &nbsp;&nbsp;&nbsp;Recent Activity</h3>
+    </div>
+    <div class="row">
+          <div class="card text-white bg-info mb-3" style="max-width: 18rem;float:left;margin-left:10px">
+         <div class="card-header">Quiz Score Board</div>
+         <div class="card-body">
+           <h2 class="card-title">Score - 34 %</h2>
+           <p class="card-text">Total average score of all the quiz given</p>
 
-    <div class="col-md-4 float-left placeThumbnail" data-target="<?php echo base_url();?>">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=MOLOKA'I" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">
-          MOLOKA'I
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-             Occupancy : 160
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
+         </div>
+       </div>
+       <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;float:left;margin-left:10px">
+         <div class="card-header">Course Board</div>
+         <div class="card-body">
+           <h2 class="card-title">Watch - 34 Min</h2>
+           <p class="card-text"> Engagement on course study and time spent</p>
 
-    <div class="col-md-4 float-left placeThumbnail" data-target="<?php echo base_url();?>">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=MOLOKA'I" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">
-          MOLOKA'I
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-             Occupancy : 160
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
+         </div>
+       </div>
+       <div class="card text-white bg-success mb-3" style="max-width: 18rem;float:left;margin-left:10px">
+         <div class="card-header">Discussion Board</div>
+         <div class="card-body">
+           <h2 class="card-title">Reply - 45% </h2>
+           <h2 class="card-title">Asked - 56% </h2>
+           <p class="card-text"> Your engagement and responsiveness on various discussion</p>
+
+         </div>
+       </div>
     </div>
-    <div class="col-md-4 float-left placeThumbnail" data-target="<?php echo base_url();?>">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=MOLOKA'I" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">
-          MOLOKA'I
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-             Occupancy : 160
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 float-left placeThumbnail" data-target="<?php echo base_url();?>">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=MOLOKA'I" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">
-          MOLOKA'I
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-             Occupancy : 160
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
+    <hr>
+    <div class="row">
+      <h3> &nbsp;&nbsp;&nbsp;Report</h3>
     </div>
 
-    <div class="col-md-4 float-left">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text= + LOAD MORE" alt="Card image cap">
-      </div>
-    </div>
+
+
+
   </div>
+
 </div>
 
 </div>

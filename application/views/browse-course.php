@@ -20,16 +20,18 @@
   <div class="col-md-3">
     <ul class="list-group">
      <li class="list-group-item alert-info"><h4>Category</h4></li>
-     <li class="list-group-item">Browse All Course<br><small>45+ courses available</small></li>
+     <li class="list-group-item" data-href="<?php echo base_url();?>browse-course">Browse All Course<br><small><?php echo browseCourse()['total_course'];?>+ courses available</small></li>
 
-     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>browse-quiz">Take Quiz <br><small>769+ quiz available</small><span class="badge badge-info float-right">45</span></li>
+     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>browse-quiz">Take Quiz <br><small><?php echo browseCourse()['total_quiz'];?>+ quiz available</small><span class="badge badge-info float-right"><?php echo browseCourse()['total_quiz'];?></span></li>
 
     <?php foreach($categories as $category) : ?>
     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>browse-course/?category=<?php echo $category['category_name'];?>">
       <?php echo $category['category_title'];?>
       <br>
-      <small><span class="badge badge-info">76+ </span> quiz available</small>
-      <span class="badge badge-info float-right">45</span>
+
+      <small><span class="badge badge-info"><?php echo getNoOfQuizInsideCategory($category['id']);?>+ </span> quiz questions</small>
+
+      <span class="badge badge-info float-right"><?php echo getNoOfCourseInsideCategory($category['id']);?></span>
     </li>
    <?php endforeach ?>
     </ul>
@@ -53,19 +55,23 @@
 
 
    <?php foreach($courses as $course) : ?>
+    <?php $image_link = ($course['is_google_autoload'] == 1) ? imageSearch("udemy+HD+".$course['course_name']) : $course['image_link'];?>
+
     <div class="col-md-4 float-left placeThumbnail courseSelected" data-target="<?php echo base_url();?>show-course/<?php echo $course['course_name'] ; ?>">
       <div class="card mb-4 box-shadow">
         <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=<?php echo $course['course_title'] ; ?>" alt="Card image cap">
         <div class="card-body">
           <p class="card-text">
-          <?php echo $course['course_title'] ; ?>
+        <?php echo substr($course['course_title'],0,30);?>
           </p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-             <a href="" class="btn btn-danger btn-sm">Subscriber 345</a>
+             <a href="" class="btn btn-dark btn-sm">Subscriber <?php echo courseSubscribers($course['course_name']);?></a>
+             <?php if(isCourseQuizAvailable($course['id'])) : ?>
              <a href="<?php echo base_url();?>show-quiz/<?php echo $course['course_name'];?>" class="btn btn-info btn-sm">Take Quiz</a>
+           <?php endif ?>
             </div>
-            <small class="text-muted">9 mins</small>
+            <small class="text-muted"><?php time_stamp(strtotime($course['updated']));?></small>
           </div>
         </div>
       </div>

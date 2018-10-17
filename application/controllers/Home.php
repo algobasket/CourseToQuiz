@@ -11,6 +11,7 @@
      $this->load->model('report_model');
      $this->load->helper('subscription');
      $this->load->helper('common');
+
    }
 
 
@@ -41,22 +42,38 @@
    }
 
 
-
-
    function show_course(){
      if($this->uri->segment(2)){
        $course = $this->courses_model->oneCourseFromName($this->uri->segment(2));
      }
+     if(@$_GET['action'] == "fork"){
+       $this->quiz_model->forkCourse($this->uri->segment(2),$this->session->userdata('userId'));
+       redirect('show-course/'.$this->uri->segment(2));
+     }
+      // print_r($this->courses_model->getCourseChapters($this->uri->segment(2)));die; 
       $this->load->view('template/content',[
-        'page' => 'show-course',
-        'course' => $course
+        'page'           => 'show-course',
+        'course'         => $course,
+        'isCourseForked' => $this->quiz_model->isCourseForked($this->uri->segment(2),$this->session->userdata('userId')),
+        'courseSubscribers' => $this->quiz_model->courseSubscribers($this->uri->segment(2)),
+        'courseChapters' => $this->courses_model->getCourseChapters($this->uri->segment(2)),
+        'courseVideos' => $this->courses_model->getCourseVideos($this->uri->segment(2))
       ]);
    }
 
 
 
    function browse_quiz(){
-        $this->load->view('template/content',['page' => 'browse-quiz']);
+     if(@$_GET['category']){
+       $courses = $this->courses_model->coursesByCategory(@$_GET['category']);
+     }else{
+       $courses = $this->courses_model->trendingCoursesByCategory();
+     }
+      $this->load->view('template/content',[
+        'page' => 'browse-quiz',
+        'categories' => $this->crud_model->getAllRecord('category'),
+        'courses' => $courses
+      ]);
    }
 
 
@@ -123,9 +140,9 @@
      ]);
 
      $this->load->view('template/content',[
-       'page'      => 'start-quiz',
-       'quizData'  => $quizData,
-       'quizDuration' => 15,
+       'page'            => 'start-quiz',
+       'quizData'        => $quizData,
+       'quizDuration'    => quizTime()['quiz_time'],
        'totalQuestions'  => $_GET['noOfQuestions']
      ]);
    }

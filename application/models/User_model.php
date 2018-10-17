@@ -67,7 +67,10 @@ class User_model extends CI_Model{
      return @$query->result_array()[0]['status'];
    }
 
-
+   function userSetting($userId){
+     $query = $this->db->select('setting')->from('userDetail')->where('user_id',$userId)->get();
+     return @$query->result_array()[0]['setting'];
+   }
 
 }
 ?>

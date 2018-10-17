@@ -6,8 +6,8 @@ if(is_array($getQuizData) && isset($getQuizData)){
    foreach($questions as $question){};
 
  ?>
- <textarea class="questions_hidden"><?php echo json_encode($questions,true);?></textarea>
- <textarea class="answers_hidden"><?php echo json_encode($answers,true);?></textarea>
+ <textarea class="questions_hidden" style="display:none"><?php echo json_encode($questions,true);?></textarea>
+ <textarea class="answers_hidden" style="display:none"><?php echo json_encode($answers,true);?></textarea>
 
 <div class="row" data-questionId ="<?php echo $question['id'];?>">
   <h3>

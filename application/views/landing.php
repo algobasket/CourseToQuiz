@@ -1,78 +1,4 @@
- <style>
- .how-udemy-works-container {
-   display: block;
-   border: none;
-   background: -webkit-linear-gradient(-45deg,#ec5252,#6e1a52);
-   background: -moz-linear-gradient(-45deg,#ec5252 0,#6e1a52 100%);
-   background: -ms-linear-gradient(-45deg,#ec5252 0,#6e1a52 100%);
-   background: -o-linear-gradient(-45deg,#ec5252 0,#6e1a52 100%);
-   background: linear-gradient(-45deg,#ec5252,#6e1a52);
-   height:80px;
-   line-height: 80px;
-}
-.how_works_text b{
-    font-size: 17px;
-    display: block;
-    color: #fff;
-}
-b, strong {
-    font-weight: 700;
-}
-.rating {
-      float:left;
-    }
 
-    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
-      follow these rules. Every browser that supports :checked also supports :not(), so
-      it doesn’t make the test unnecessarily selective */
-    .rating:not(:checked) > input {
-        position:absolute;
-        top:-9999px;
-        clip:rect(0,0,0,0);
-    }
-
-    .rating:not(:checked) > label {
-        float:right;
-        width:1em;
-        /* padding:0 .1em; */
-        overflow:hidden;
-        white-space:nowrap;
-        cursor:pointer;
-        font-size:110%;
-        /* line-height:1.2; */
-        color:#ddd;
-    }
-
-    .rating:not(:checked) > label:before {
-        content: '★ ';
-    }
-
-    .rating > input:checked ~ label {
-        color: yellow;
-
-    }
-
-    .rating:not(:checked) > label:hover,
-    .rating:not(:checked) > label:hover ~ label {
-        color: yellow;
-
-    }
-
-    .rating > input:checked + label:hover,
-    .rating > input:checked + label:hover ~ label,
-    .rating > input:checked ~ label:hover,
-    .rating > input:checked ~ label:hover ~ label,
-    .rating > label:hover ~ input:checked ~ label {
-        color: yellow;
-
-    }
-
-    .rating > label:active {
-        position:relative;
-        top:2px;
-        left:2px;
-    }
- </style>
 
     <main role="main">
 
@@ -122,6 +48,7 @@ b, strong {
 
            <?php foreach($courses as $course) : ?>
             <?php $image_link = ($course['is_google_autoload'] == 1) ? imageSearch("udemy+HD+".$course['course_name']) : $course['image_link'];?>
+
             <div class="col-md-3">
               <div class="card mb-3 box-shadow">
                 <img class="card-img-top" height="135" src="<?php echo $image_link;?>" data-src="holder.js/100px135?theme=thumb&bg=af4456&fg=eceeef&text=<?php echo $course['course_title'];?>" alt="Card image cap">
