@@ -1,54 +1,33 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Membership & Get Certified</h1>
+      <h2 class="display-4">Membership & Get Certified</h2>
       <p class="lead">Get all the benefits with our membership plan and get certified</p>
+      <?php if($this->session->flashdata('alert')) : ?>
+       <div class="lead">
+         <?php echo $this->session->flashdata('alert');?>
+       </div>
+      <?php endif ?>
     </div>
+
 
     <div class="container">
       <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Free</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>10 users included</li>
-              <li>2 GB of storage</li>
-              <li>Email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
-          </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Pro</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>20 users included</li>
-              <li>10 GB of storage</li>
-              <li>Priority email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-          </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Enterprise</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>30 users included</li>
-              <li>15 GB of storage</li>
-              <li>Phone and email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
-          </div>
-        </div>
+          <?php foreach($membership_plans as $member) : ?>
+            <?php $json = json_decode($member['json'],true);?>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal"><?php echo $member['plan_title'];?></h4>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title pricing-card-title"><?php echo $json['monthly'];?> <?php echo $json['currency'];?> /mon</h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                 <?php foreach($json['features'] as $f) : ?>
+                  <li><?php echo $f;?></li>
+                <?php endforeach ?>
+                </ul>
+                <a href="<?php echo base_url();?>membership-plan/?payment=_&planID=<?php echo $member['id'];?>" class="btn btn-lg btn-block btn-outline-dark">
+                  Sign up for free</a>
+              </div>
+            </div>
+          <?php endforeach ?>
       </div>
       </div>

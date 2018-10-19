@@ -1,10 +1,11 @@
 <?php
 Class Subscription_model extends CI_Model{
 
-  function hasSubscription($userId){
+  function hasSubscription($userId,$planId){
     $date = date('Y-m-d');
-    $query = $this->db->query("SELECT * FROM subscription WHERE valid_upto < ? AND user_id = ?",array($date,$userId));
-    if($query->num_rows() > 0){ 
+    $query = $this->db->query("SELECT * FROM subscription WHERE valid_upto > ? AND user_id = ? AND plan_id = ?",array($date,$userId,$planId));
+    //echo $this->db->last_query();
+    if($query->num_rows() > 0){
       return true;
     }
   }

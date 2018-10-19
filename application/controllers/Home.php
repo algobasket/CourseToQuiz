@@ -50,7 +50,7 @@
        $this->quiz_model->forkCourse($this->uri->segment(2),$this->session->userdata('userId'));
        redirect('show-course/'.$this->uri->segment(2));
      }
-      // print_r($this->courses_model->getCourseChapters($this->uri->segment(2)));die; 
+      // print_r($this->courses_model->getCourseChapters($this->uri->segment(2)));die;
       $this->load->view('template/content',[
         'page'           => 'show-course',
         'course'         => $course,
@@ -76,12 +76,29 @@
       ]);
    }
 
-
+   function test(){
+     $this->load->view('test');
+   }
 
    function membership_plan(){
+     $moreData = array();
+     if(array_key_exists("payment",$_GET)){
+         if($this->session->userdata('userId')){
+              if(hasSubscription($this->session->userdata('userId'),$_GET['planID']) == true){
+                $this->session->set_flashdata("alert","<div class='alert alert-success'>You already has this membership active</div>");
+                redirect('membership-plan');
+              }else{
+
+              }
+         }else{
+           $this->session->set_userdata('redirectAfterLogin',base_url().'membership-plan');
+           redirect('auth/login');
+         }
+     }
      $this->load->view('template/content',[
-       'page' => 'membership-plan'
-     ]);
+       'page' => 'membership-plan',
+       'membership_plans' => $this->crud_model->getAllRecord('subscription_plans')
+     ],$moreData);
    }
 
 
@@ -146,7 +163,6 @@
        'totalQuestions'  => $_GET['noOfQuestions']
      ]);
    }
-
 
   function license(){
     $this->load->view('template/content',[

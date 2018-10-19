@@ -67,6 +67,7 @@
  <br>
   <h4>&nbsp;&nbsp;&nbsp;Course Videos</h4>
   <div class="row">
+
     <?php
     if(is_array($courseVideos) && count($courseVideos) > 0){
     $i=1;foreach($courseVideos as $key => $video){ ?>
@@ -81,9 +82,14 @@
     </div>
     <?php $i++;?>
   <?php } }else{ ?>
-    <div class="alert alert-info text-center">No Video Available Yet</div>
+
+       <div class="alert alert-info text-center" style="margin:20px;width:100%;">No Video Available Yet</div>
+
   <?php } ?>
+
 </div>
+
+
 <br>
 <h3>Discussion</h3>
 <div id="disqus_thread"></div>

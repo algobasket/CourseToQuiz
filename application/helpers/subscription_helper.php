@@ -1,9 +1,9 @@
 <?php
 if( ! function_exists('hasSubscription')){
-  function hasSubscription($userId){
+  function hasSubscription($userId,$planId){
     $ci = get_instance();
     $ci->load->model('subscription_model');
-    $return = $ci->subscription_model->hasSubscription($userId);
+    $return = $ci->subscription_model->hasSubscription($userId,$planId);
     return $return;
   }
 }
