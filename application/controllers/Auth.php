@@ -96,8 +96,8 @@ class Auth extends ALGO_Auth{
          {
             $this->session->set_flashdata('alert','<div class="alert alert-success">If email exist in our system then you will get recovery email</div>');
             $rand = md5(time().rand(1,999999));
-            $message = 'https://course2quiz.algobasket.com/Auth/newPassword/' . $rand . '/' . $email;
-    
+            $message = 'https://course2quiz.algobasket.com/auth/newPassword/' . $rand . '/' . $email;
+
             $config = Array(
               'protocol' => 'smtp',
               'smtp_host' => 'mail.algobasket.com',

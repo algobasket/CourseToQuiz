@@ -51,8 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Home';
 $route['sign-out'] = 'auth/signout';
+$route['auth/newPassword/(:any)'] = 'auth/newPassword';
 
-$route['my-quiz'] = 'welcome/myQuiz';
+$route['my-quiz'] = 'welcome/myQuiz'; 
 $route['my-course'] = 'welcome/myCourse';
 $route['my-bookmark'] = 'welcome/myBookmark';
 $route['my-exam'] = 'welcome/myExam';
