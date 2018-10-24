@@ -96,8 +96,8 @@ class Auth extends ALGO_Auth{
          {
             $this->session->set_flashdata('alert','<div class="alert alert-success">If email exist in our system then you will get recovery email</div>');
             $rand = md5(time().rand(1,999999));
-            $message = 'https://course2quiz.algobasket.com/auth/newPassword/' . $rand . '/' . $email;
-
+            $message = 'https://course2quiz.algobasket.com/auth/newPassword/' . $rand . '/' . base64_encode($email);
+            $this->auth_model->setPasswordRequestCode($rand,$email);
             $config = Array(
               'protocol' => 'smtp',
               'smtp_host' => 'mail.algobasket.com',
@@ -130,13 +130,15 @@ class Auth extends ALGO_Auth{
 
   function newPassword(){
     $code  = $this->uri->segment(3);
-    $email = $this->uri->segment(4);
-    if($this->auth_model->checkPasswordRequestCode($code,$email) == true)
+    $email = trim(base64_decode($this->uri->segment(4)));
+    $this->auth_model->checkPasswordRequestCode($code,$email);
+    if($this->auth_model->checkPasswordRequestCode($code,$email) == 1)
     {
       if($this->input->post('submit'))
       {
          $newPassword = $this->input->post('newPassword');
          $this->auth_model->changePassword($email,$newPassword);
+         $this->session->set_flashdata('alert','<div class="alert alert-success">Password Changed</div>');
       }
       $this->load->view('template/content',['page' => 'forgot','section' => 'passwordForm']);
     }else{

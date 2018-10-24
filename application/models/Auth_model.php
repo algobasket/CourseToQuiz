@@ -63,7 +63,7 @@ class Auth_model extends CI_Model{
 
     public function setPasswordRequestCode($rand,$email){
       $this->db->where('email',$email);
-      $this->db->insert('user',['resetCode' => $rand]);
+      $this->db->update('user',['resetCode' => $rand]);
       return true;
     }
 
