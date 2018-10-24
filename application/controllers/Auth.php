@@ -95,7 +95,9 @@ class Auth extends ALGO_Auth{
           if($this->auth_model->isEmailAvailable($email) == true)
          {
             $this->session->set_flashdata('alert','<div class="alert alert-success">If email exist in our system then you will get recovery email</div>');
-            $rand = rand(time().rand(1,999999));
+            $rand = md5(time().rand(1,999999));
+            echo $message = base_url() . 'Auth/newPassword/' . $rand . '/' . $email;
+            die;
             $config = Array(
               'protocol' => 'smtp',
               'smtp_host' => 'mail.algobasket.com',
@@ -112,7 +114,6 @@ class Auth extends ALGO_Auth{
             $this->email->cc($email);
             $this->email->bcc($email);
             $this->email->subject('Change Password');
-            $message = base_url() . 'Auth/newPassword/' . $rand . '/' . $email;
             $this->email->message($message);
             if($this->email->send()){
               $this->auth_model->setPasswordRequestCode($rand,$email);
