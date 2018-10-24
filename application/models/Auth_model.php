@@ -61,6 +61,23 @@ class Auth_model extends CI_Model{
        return ($query->num_rows() > 0) ? true : false;
     }
 
+    public function setPasswordRequestCode($rand,$email){
+      $this->db->where('email',$email);
+      $this->db->insert('user',['resetCode' => $rand]);
+      return true;
+    }
+
+    public function checkPasswordRequestCode($code,$email){
+      $query = $this->db->where(['email' => $email,'resetCode' => $code])->get('user');
+      return ($query->num_rows() > 0) ? true : false;
+    }
+
+    public function changePassword($email,$newPassword){
+      $this->db->where("email",$email);
+      $this->db->update('user',["password" => md5($newPassword),"resetCode" => NULL]);
+      return true;
+    }
+
     // Get SocialOAuth Info
     function getSocialOAuth($where){
       $query = $this->db->select('user.*,userDetail.first_name,userDetail.last_name')

@@ -28,7 +28,7 @@ class Auth extends ALGO_Auth{
                   'rolename'    => $userData['rolename'],
                   'displayname' => ucfirst($userData['first_name']) . ' ' . ucfirst($userData['last_name'])
                 ]);
-                if($this->session->userdata('redirectAfterLogin')){ 
+                if($this->session->userdata('redirectAfterLogin')){
                   redirect($this->session->userdata('redirectAfterLogin'));
                 }else{
                    redirect('welcome');
@@ -88,7 +88,60 @@ class Auth extends ALGO_Auth{
      $this->load->view('template/content',['page' => 'auth']);
   }
 
+  function forgot(){
+       $email = trim($this->input->post('email'));
+       if($this->input->post('submit'))
+       {
+          if($this->auth_model->isEmailAvailable($email) == true)
+         {
+            $this->session->set_flashdata('alert','<div class="alert alert-success">If email exist in our system then you will get recovery email</div>');
+            $rand = rand(time().rand(1,999999));
+            $config = Array(
+              'protocol' => 'smtp',
+              'smtp_host' => 'mail.algobasket.com',
+              'smtp_port' => 465,
+              'smtp_user' => 'noreply@algobasket.com',
+              'smtp_pass' => 'EkNG2?Kh^+ZJxxx',
+              'mailtype'  => 'html',
+              'charset'   => 'iso-8859-1'
+          );
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+            $this->email->from('test@algobasket.com', 'AlgoBasket');
+            $this->email->to($email);
+            $this->email->cc($email);
+            $this->email->bcc($email);
+            $this->email->subject('Change Password');
+            $message = base_url() . 'Auth/newPassword/' . $rand . '/' . $email;
+            $this->email->message($message);
+            if($this->email->send()){
+              $this->auth_model->setPasswordRequestCode($rand,$email);
+            }else{
+              $this->session->set_flashdata('alert','<div class="alert alert-danger">Something went wrong !</div>');
+            }
 
+        }else{
+        $this->session->set_flashdata('alert','<div class="alert alert-danger">Email doesnt exists</div>');
+       }
+   }
+    $this->load->view('template/content',['page' => 'forgot','section' => 'emailForm']);
+  }
+
+  function newPassword(){
+    $code  = $this->uri->segment(3);
+    $email = $this->uri->segment(4);
+    if($this->auth_model->checkPasswordRequestCode($code,$email) == true)
+    {
+      if($this->input->post('submit'))
+      {
+         $newPassword = $this->input->post('newPassword');
+         $this->auth_model->changePassword($email,$newPassword);
+      }
+      $this->load->view('template/content',['page' => 'forgot','section' => 'passwordForm']);
+    }else{
+      die("Sorry something went wrong . Please check the url");
+    }
+  }
 
  // Facebook Login
   function facebook(){
