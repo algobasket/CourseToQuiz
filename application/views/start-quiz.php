@@ -173,3 +173,19 @@
 
 </div>
 <br><br>
+<script>
+function send_feedback(){
+  var data = {
+    courseName : "<?php echo $_GET['course'];?>",
+    rating : $('.feedback_rating').val(),
+    comment : $('.feedback_message').val()
+  };
+  $.post('<?php echo base_url();?>home/postFeedback',data,function(data,status){
+     $('.feedback_alert').html('<div class="alert alert-success">Thanks For Your Rating & Feedback! <i class="fa fa-like fa-2x"></i></div>').show();
+     window.setTimeout(function(){
+         // Move to a new location or you can do something else
+         window.location.href = "<?php echo base_url();?>/my-quiz";
+       }, 5000);
+  });
+}
+</script>

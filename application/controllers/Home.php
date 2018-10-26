@@ -11,6 +11,7 @@
      $this->load->model('report_model');
      $this->load->helper('subscription');
      $this->load->helper('common');
+     $this->load->helper('quiz'); 
 
    }
 
@@ -120,12 +121,34 @@
          $course = $this->courses_model->oneCourseFromName($this->uri->segment(2));
       }
       $data['total_questions'] = $this->quiz_model->total_questions($this->uri->segment(2));
+      $data['total_questions_level'] = $this->quiz_model->updateNoOfQuestionWithLevels('easy',$this->uri->segment(2));
       $this->load->view('template/content',array_merge([
-        'page' => 'show-quiz',
+        'page'   => 'show-quiz',
         'course' => $course
       ],$data));
    }
 
+   function updateNoOfQuestionWithLevels(){
+      $count = $this->quiz_model
+                    ->updateNoOfQuestionWithLevels($this->input->post('selectLevel'),$this->input->post('coursename'));
+     if($count > 0){
+          echo '<option selected="true" disabled="disabled">No Of Questions</option>';
+       for($i=1;$i<=$count;$i++){
+          echo '<option value="'.$i.'">'.$i.'</option>';
+       }
+     }else{
+          echo 0;
+     }
+
+   }
+
+  function postFeedback(){
+    $this->quiz_model->postFeedback(
+      $this->input->post('courseName'),
+      $this->session->userdata('userId'),
+      $this->input->post('rating'),
+      $this->input->post('comment'));
+  }
 
 
    function start_quiz(){

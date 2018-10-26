@@ -16,6 +16,9 @@
   </div>
   <div class="col-md-9">
   <div class="row"><h3>&nbsp;&nbsp;Quiz History</h3></div><hr>
+  <?php if($this->session->flashdata('alert')){
+    echo $this->session->flashdata('alert');
+  } ?>
   <div class="row">
 
 <?php if($section == "quizTakenList") : ?>
@@ -51,6 +54,7 @@
  ?>
   <div class="container">
     <a href="javascript:window.print();" class="btn btn-dark"><i class="fa fa-download"></i> Download Result</a>
+    <a href="?action=delete" class="btn btn-danger"><i class="fa fa-download"></i> Delete This Quiz</a>
     <br>  <br>
     <div class="form-group">
      <label><b>Quiz Session ID - </b></label>

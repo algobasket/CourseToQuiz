@@ -27,17 +27,51 @@
     <?php echo $r['course_description'];?>
     </p>
      <h5>Select Difficult Level</h5>
-     <select class="btn btn-outline-secondary btn-lg selectLevel">
-       <option value="easy" select>Easy - Level One</option>
-       <option value="medium">Medium - Level Two</option>
-       <option value="hard">Hard - Level Three</option>
-       <option value="complex">Complex - Level Four</option>
+     <select class="btn btn-outline-secondary btn-lg selectLevel" onchange="updateNoOfQuestionWithLevels(this.value)">
+       <option selected="true" disabled="disabled">Difficult Level</option>
+       <option value="easy" select>Easy - Level</option>
+       <option value="medium">Medium - Level</option>
+       <option value="hard">Hard - Level</option>
+       <option value="complex">Complex - Level</option>
      </select>
+      <script>
+      function updateNoOfQuestionWithLevels(i){
+        var param = {
+          selectLevel : i,
+          coursename : '<?php echo $this->uri->segment(2);?>'
+        };
+        $.post('<?php echo base_url();?>home/updateNoOfQuestionWithLevels',param,function(data,status){
+          if(data == 0){
+            $('.no_of_questions').html('<option selected="true" disabled="disabled">Not Yet Available</option>').show();
+            $('.QuizReadyConfirmation').addClass('disabled');
+            $('.QuizReadyConfirmation').attr('aria-disabled="true"');
+           }else{
+             if($('.no_of_questions').val()){
+               $('.QuizReadyConfirmation').removeClass('disabled');
+               $('.QuizReadyConfirmation').attr('aria-disabled="false"');
+             }
+             $('.no_of_questions').html(data).show();
+          }
 
+        });
+      }
+      function no_of_questions(x){
+          var x = parseInt(x);
+        if(typeof x == 'number'){
+          $('.QuizReadyConfirmation').removeClass('disabled');
+          $('.QuizReadyConfirmation').attr('aria-disabled="false"');
+        }else{
+          $('.QuizReadyConfirmation').addClass('disabled');
+          $('.QuizReadyConfirmation').attr('aria-disabled="true"');
+
+        }
+        console.log(typeof x);
+      }
+      </script>
      <h5>Select Number Of Questions</h5>
-     <select class="btn btn-outline-secondary btn-lg selectLevel no_of_questions" name="no_of_questions">
-        <option disable>No Of Questions</option>
-        <?php for($i = 1;$i<= $total_questions;$i++) : ?>
+     <select class="btn btn-outline-secondary btn-lg selectLevel no_of_questions" name="no_of_questions" onclick="no_of_questions(this.value)">
+        <option disabled="disabled">No Of Questions</option>
+        <?php for($i = 1;$i<= $total_questions_level;$i++) : ?>
           <option value="<?php echo $i;?>"><?php echo $i;?></option>
         <?php endfor ?>
      </select>
@@ -63,7 +97,7 @@
    <div class="card-body">
      <h5 class="card-title">Real Quiz on <?php echo $course_title ;?></h5>
      <p class="card-text">After taking this live quiz you will get certified and you score will be stored</p>
-     <a href="javascript:void(0)" data-quiztype="1"  class="btn btn-success QuizReadyConfirmation">Start Real Quiz</a>
+     <a href="javascript:void(0)" data-quiztype="1"  class="btn btn-success QuizReadyConfirmation disabled">Start Real Quiz</a>
      <span>&nbsp;&nbsp;&nbsp;Membership is required</span>
    </div>
  </div>
@@ -74,7 +108,7 @@
    <div class="card-body">
      <h5 class="card-title">Practise Quiz on <?php echo $course_title ;?></h5>
      <p class="card-text">Use this quiz option if you want to practise</p>
-     <a href="javascript:void(0)" data-quiztype="0" class="btn btn-warning QuizReadyConfirmation">Go Test Quiz</a>
+     <a href="javascript:void(0)" data-quiztype="0" class="btn btn-warning QuizReadyConfirmation disabled">Go Test Quiz</a>
    </div>
  </div>
 </div>

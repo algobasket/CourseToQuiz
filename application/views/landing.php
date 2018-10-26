@@ -55,17 +55,25 @@
                 <div class="card-body">
                   <p class="card-text"><?php echo substr($course['course_title'],0,30);?></p>
                   <p>
-                    <?php $rating = rand(1,4);$rating2 = rand(0,4);?>
-                    <?php $ratingUsers = rand(1,10);?>
+
+
                     <div class="rating">
-                      <?php for($i = 1;$i<= 5 - round($rating);$i++){ ?>
-                      <label>1 star</label>
-                      <?php } ?>
-                      <?php for($i = 1;$i<= round($rating);$i++){ ?>
-                        <label style="color:yellow">1 star</label>
-                      <?php } ?>
+                        <?php
+                         $rating = round(courseRating($course['id'])['rating']);
+                         $nonrating = 5 - $rating;
+                         for($j=1;$j<=$nonrating;$j++){
+                           echo '<label>1 star</label>';
+                         }
+                         for($i=1;$i<=$rating;$i++){
+                           echo '<label style="color:yellow">1 star</label>';
+                         }
+
+                        ?>
+
+
+
                    </div>
-                     &nbsp;<small><?php echo $rating . '.'.$rating2;?> (<?php echo $ratingUsers;?>)</small></p>
+                     &nbsp;<small><?php echo courseRating($course['id'])['rating'];?> (<?php echo courseRating($course['id'])['count'];?>)</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="<?php echo base_url();?>show-course/<?php echo $course['course_name'];?>" class="btn btn-sm btn-outline-secondary">Take Course</a>

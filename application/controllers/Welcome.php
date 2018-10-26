@@ -21,7 +21,8 @@ class Welcome extends Base {
       'total_course' => $this->report_model->total_course(),
       'total_quiz'   => $this->report_model->total_questions(),
       'quiz_taken'   => $this->report_model->quiz_taken(),
-      'course_taken' => $this->report_model->course_taken()
+      'course_taken' => $this->report_model->course_taken(),
+      'total_quiz_score' => $this->quiz_model->total_quiz_score()
     ];
     $this->common = $data;
 	}
@@ -138,6 +139,11 @@ class Welcome extends Base {
 
   public function quizHistoryReport(){
     $quizSessionId = $this->uri->segment(2);
+    if($_GET['action'] == "delete"){
+      $this->quiz_model->deleteUserQuizData($quizSessionId);
+      $this->session->set_flashdata('alert','<div class="alert alert-danger">Quiz Deleted !</div>');
+      redirect('my-quiz');
+    }
     $data['quizHistoryReport'] = $this->quiz_model->quizHistoryReport($this->session->userdata('userId'),$quizSessionId);
     $this->page(array_merge([
       'page' => 'quiz-taken',

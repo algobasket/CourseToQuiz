@@ -214,6 +214,68 @@ class Quiz_model extends CI_Model{
       return $query->result_array();
     }
 
+    function total_quiz_score(){
+      $userId = $this->session->userdata('userId');
+      $query = $this->db->query("select * from quiz where user_id = ?",array($userId));
+      if($query->num_rows() > 0){
+         foreach($query->result_array() as $r){
+           $totalQuestionSelected = $this->totalQuestionSelected($r['quiz_session_id']);
+           $correctAnswered       = $this->correctAnswered($r['quiz_session_id']);
+
+             $scored[] = round($this->scored($correctAnswered,$totalQuestionSelected),2);
+         }
+         return array_sum($scored) * 1/count($scored);
+      }
+    }
+
+    function updateNoOfQuestionWithLevels($level,$coursename){
+      $courseid = $this->getCourseIdFromCourseName($coursename);
+      $q = $this->db->where(['course_id' => $courseid,'level' => $level])
+                    ->get('questions');
+      //echo $this->db->last_query();
+      return $q->num_rows();
+    }
+
+    function postFeedback($course,$userid,$rating,$comment){
+       $this->db->insert('feedback_rating',[
+         'course_id' => $this->getCourseIdFromCourseName($course),
+         'user_id' =>$userid,
+         'rating' => $rating,
+         'comment' => $comment
+       ]);
+       return true;
+    }
+
+    function courseRating($courseid){
+      $query = $this->db->where('course_id',$courseid)->get('feedback_rating');
+      //echo $this->db->last_query();
+      $countUsers = $query->num_rows();
+      if($countUsers > 0){
+        foreach($query->result_array() as $r){
+           $totrates[] = $r['rating'];
+         };
+         $totrates = @array_sum($totrates);
+         $rating = 5 * $totrates/($countUsers * 5);
+         $return = [
+           'count' => $countUsers ? $countUsers : 0,
+           'rating' => $rating ? round($rating,1) : 0
+         ];
+      }else{
+        $return = [
+          'count' =>  0,
+          'rating' => 0
+        ];
+      }
+       return $return;
+    }
+
+    function deleteUserQuizData($quiz_session_id){
+      $this->db->where('quiz_session_id',$quiz_session_id);
+      $this->db->delete('quiz');
+      $this->db->where('quiz_session_id',$quiz_session_id);
+      $this->db->delete('user_answers');
+    }
+
     function saveUserQuizData(){
 
     }

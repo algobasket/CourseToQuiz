@@ -44,7 +44,45 @@ $(".sliderVegas").vegas({
         { src: "<?php echo base_url();?>assets/img/slider/slider2.jpg" },
         { src: "<?php echo base_url();?>assets/img/slider/slider3.jpg" }
     ],
-    overlay:'http://vegas.jaysalvat.com/js/vegas/dist/overlays/09.png'
+    overlay:'https://vegas.jaysalvat.com/js/vegas/dist/overlays/09.png'
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script>
+//line
+var ctxL = document.getElementById("lineChart").getContext('2d');
+var myLineChart = new Chart(ctxL, {
+  type: 'line',
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+        label: "My First dataset",
+        data: [65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+          'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+          'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+      },
+      {
+        label: "My Second dataset",
+        data: [28, 48, 40, 19, 86, 27, 90],
+        backgroundColor: [
+          'rgba(0, 137, 132, .2)',
+        ],
+        borderColor: [
+          'rgba(0, 10, 130, .7)',
+        ],
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true
+  }
 });
 </script>
 
@@ -130,12 +168,19 @@ function getQuizContinue() {
         $.post('<?php echo base_url();?>quiz/saveRemainingQuizTimer',postData2,function(data,status){
             console.log(data);
         });
-        var html = '<h4>Quiz Completed Successfully</h4><br>Your result will be saved to your quiz history<br>Thanks for using our platform<br><a href="<?php echo base_url();?>/quiz" class="btn btn-success">Try More Quiz</a>';
+        var html = '<h4>Quiz Completed Successfully</h4>'+
+                   '<br>Your result will be saved to your quiz history<br>'+
+                   'Thanks for using our platform<br>'+
+                   '<a href="<?php echo base_url();?>quiz" class="btn btn-success">Try More Quiz</a><br>'+
+                   '<h4>Your Rating & Quiz Experience Feedback Is Important For Us</h4><br>'+
+                   '<span class="feedback_alert"><h5> 1 <input type="radio" class="feedback_rating" value="1" name="feedback_rating"/>  | 2 <input type="radio" class="feedback_rating" value="2" name="feedback_rating"/> | 3 <input type="radio" class="feedback_rating" value="3" name="feedback_rating"/> | 4 <input type="radio" class="feedback_rating" value="4" name="feedback_rating"/> | 5 <input type="radio" class="feedback_rating" value="5" name="feedback_rating"/></h5><br>'+
+                   '<textarea class="form-control feedback_message"></textarea><br><button type="button" class="btn btn-success" onclick="send_feedback()">Send Feedback</button></span>';
+
         $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
-        window.setTimeout(function(){
-            // Move to a new location or you can do something else
-            window.location.href = "<?php echo base_url();?>/my-quiz";
-          }, 5000);
+        // window.setTimeout(function(){
+        //     // Move to a new location or you can do something else
+        //     window.location.href = "<?php //echo base_url();?>/my-quiz";
+        //   }, 5000);
       }
       timer.addEventListener('secondsUpdated', function (e) {
           $('.RemainingQuizTimer').html(timer.getTimeValues().toString(['minutes','seconds']));
@@ -145,7 +190,7 @@ function getQuizContinue() {
          $('.dynamicChanges').html('<div class="alert alert-success">'+html+'</div>').show();
          window.setTimeout(function(){
              // Move to a new location or you can do something else
-             window.location.href = "<?php echo base_url();?>/my-quiz";
+             window.location.href = "https://course2quiz.algobasket.com/welcome";
            }, 5000);
      });
       if(starts == 1){
@@ -158,6 +203,7 @@ function getQuizContinue() {
 function stopTimer(timer){
   timer.stop();
 }
+
 // var mins=1;
 // var secs = mins*60;
 // //var timerInterv = setInterval(doCountDown,1000);

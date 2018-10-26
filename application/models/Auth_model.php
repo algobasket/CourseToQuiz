@@ -96,14 +96,19 @@ class Auth_model extends CI_Model{
       if(is_array($query)){
          return $query;
       }else{
-        $this->register([
-          'username' => $data['email'],
-          'email'    => $data['email'],
-          'facebookOAuth' => json_encode($data,true)
-        ],[
-          'first_name' => explode(' ',$data['name'])[0],
-          'last_name'  => explode(' ',$data['name'])[1],
-        ]);
+        if($this->isEmailAvailable($data['email']) == 1){
+           $this->db->where('email',$data['email']);
+           $this->db->update('user',['facebookOAuth' => json_encode($data,TRUE)]);
+        }else{
+          $this->register([
+            'username' => $data['email'],
+            'email'    => $data['email'],
+            'facebookOAuth' => json_encode($data,true)
+          ],[
+            'first_name' => explode(' ',$data['name'])[0],
+            'last_name'  => explode(' ',$data['name'])[1],
+          ]);
+        }
          return $this->getSocialOAuth([
            'user.facebookOAuth' => json_encode($data,TRUE)
          ]);

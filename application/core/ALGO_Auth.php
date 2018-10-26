@@ -9,6 +9,7 @@ class ALGO_Auth extends CI_Controller
   {
     parent::__construct();
     $this->load->model('auth_model');
+    $this->load->model('crud_model');
     $this->isUserLogged();
   }
 
@@ -16,12 +17,24 @@ class ALGO_Auth extends CI_Controller
   // Facebook Auth
   function facebookAuth(){
     require APPPATH . 'libraries/vendor/autoload.php';
+
     if($_SERVER['HTTP_HOST'] == "course2quiz.algobasket.com"){
-       $app_id = "683627122036127";
-       $app_secret = "bfefae7f5e8843ce6e5ec991884f69b7";
+      $facebookLive  = $this->crud_model->getOneRecord('setting',[
+        'setting_type' => 'social',
+        'setting_name' => 'facebook-live'
+        ])[0]['json_data'];
+       $facebookLive = json_decode($facebookLive,true);
+       //print_r($facebookLive);die;
+       $app_id     = $facebookLive['api_key'];
+       $app_secret = $facebookLive['api_secret'];
+       $callbackurl   = $facebookLive['callback'];
     }else{
-      $app_id = "683627122036127";
-      $app_secret = "bfefae7f5e8843ce6e5ec991884f69b7";
+      $facebookLocal = $this->crud_model->getOneRecord('setting',['setting_type' => 'social','setting_name' => 'facebook-local'])[0]['json_data'];
+      $facebookLocal = json_decode($facebookLocal,true);
+      //print_r($facebookLocal);die;
+      $app_id     = $facebookLocal['api_key'];
+      $app_secret = $facebookLocal['api_secret'];
+      $callbackurl   = $facebookLocal['callback'];
     }
     $fb = new Facebook\Facebook([
       'app_id' => $app_id, // Replace {app-id} with your app id
@@ -34,7 +47,7 @@ class ALGO_Auth extends CI_Controller
     if($this->uri->segment(2) == "facebook"){
 
       $permissions = ['email']; // Optional permissions
-      $loginUrl = $helper->getLoginUrl(base_url().'auth/facebookCallback/', $permissions);
+      $loginUrl = $helper->getLoginUrl($callbackurl, $permissions);
       return $loginUrl;
     }elseif($this->uri->segment(2) == "facebookCallback"){
       try {

@@ -14,48 +14,23 @@
     <?php $this->load->view('sidebar');?>
     <br><br>
   </div>
-
   <div class="col-md-9">
-    <div class="row">
-      <h3> &nbsp;&nbsp;&nbsp;Recent Activity</h3>
-    </div>
-    <div class="row">
-          <div class="card text-white bg-info mb-3" style="max-width: 18rem;float:left;margin-left:10px">
-         <div class="card-header">Quiz Score Board</div>
-         <div class="card-body">
-           <h2 class="card-title">Score - 34 %</h2>
-           <p class="card-text">Total average score of all the quiz given</p>
-
-         </div>
-       </div>
-       <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;float:left;margin-left:10px">
-         <div class="card-header">Course Board</div>
-         <div class="card-body">
-           <h2 class="card-title">Watch - 34 Min</h2>
-           <p class="card-text"> Engagement on course study and time spent</p>
-
-         </div>
-       </div>
-       <div class="card text-white bg-success mb-3" style="max-width: 18rem;float:left;margin-left:10px">
-         <div class="card-header">Discussion Board</div>
-         <div class="card-body">
-           <h2 class="card-title">Reply - 45% </h2>
-           <h2 class="card-title">Asked - 56% </h2>
-           <p class="card-text"> Your engagement and responsiveness on various discussion</p>
-
-         </div>
-       </div>
-    </div>
+    <h3>Profile Summary</h3>
     <hr>
     <div class="row">
-      <h3> &nbsp;&nbsp;&nbsp;Report</h3>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+         <h3 class="card-title">Score Card</h3><hr>
+        <h6 class="card-subtitle mb-2 text-muted">Total Quiz Score</h6>
+        <h2><?php echo round($reports['total_quiz_score'],2);?>%</h2>
+        <h5>Total Quiz Taken - <?php echo $reports['quiz_taken'];?></h5>
+        <a href="./my-quiz" class="card-link">Check Detail</a>
+        </div>
+      </div>
+
     </div>
-
-
-
-
   </div>
-
 </div>
 
 </div>

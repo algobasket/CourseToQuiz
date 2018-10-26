@@ -43,7 +43,7 @@ class Courses extends Base {
      $out = $this->courses_model->searchCourse($text);
      if(is_array($out)){
        foreach($out as $r){
-         echo '<a href="'.base_url().'courses/search/'.$r['course_name'].'"><li class="list-group-item courseSelected">'.$r['course_title'].'</li></a>';
+         echo '<a href="'.base_url().'show-course/'.$r['course_name'].'"><li class="list-group-item courseSelected">'.$r['course_title'].'</li></a>';
        }
      }else{
         echo '<li class="list-group-item">No Course Found</li>';

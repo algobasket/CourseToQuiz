@@ -159,16 +159,17 @@ class Auth extends ALGO_Auth{
      if(is_array($callback)){
         $user = $this->auth_model->facebookOAuth($callback);
         if(is_array($user)){
-          $this->session->set_userdata([
-            'userId'      => $user['user_id'],
+          $data = [
+            'userId'      => $user['id'],
             'username'    => $user['username'],
             'email'       => $user['email'],
             'status'      => $user['status'],
             'rolename'    => $user['rolename'],
             'displayname' => ucfirst($user['first_name']) . ' ' . ucfirst($user['last_name'])
-          ]);
-          print_r($user);die;
-          //redirect('welcome');
+          ];
+          $this->session->set_userdata($data);
+          //print_r($_SESSION);die;
+          redirect('welcome');
         }
      }
   }

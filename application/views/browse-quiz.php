@@ -21,7 +21,7 @@
     <ul class="list-group">
 
      <li class="list-group-item alert-info"><h4>Category</h4></li>
-     <li class="list-group-item" data-href="<?php echo base_url();?>browse-course">Browse All Course<br><small><?php echo browseCourse()['total_course'];?>+ courses available</small></li>
+     <li class="list-group-item openMenu" data-href="<?php echo base_url();?>browse-course">Browse All Course<br><small><?php echo browseCourse()['total_course'];?>+ courses available</small></li>
      <li class="list-group-item openMenu" data-href="<?php echo base_url();?>browse-quiz">Take Quiz <br><small><?php echo browseCourse()['total_quiz'];?>+ quiz available</small><span class="badge badge-info float-right"><?php echo browseCourse()['total_quiz'];?></span></li>
 
     <?php foreach($categories as $category) : ?>
@@ -74,11 +74,11 @@
   <?php endif ?>
   <?php endforeach ?>
 
-    <div class="col-md-4 float-left">
+    <!-- <div class="col-md-4 float-left">
       <div class="card mb-4 box-shadow">
         <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text= + LOAD MORE" alt="Card image cap">
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
