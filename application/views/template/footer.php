@@ -44,7 +44,7 @@ $(".sliderVegas").vegas({
         { src: "<?php echo base_url();?>assets/img/slider/slider2.jpg" },
         { src: "<?php echo base_url();?>assets/img/slider/slider3.jpg" }
     ],
-    overlay:'https://vegas.jaysalvat.com/js/vegas/dist/overlays/09.png'
+    overlay:'https://vegas.jaysalvat.com/js/vegas/dist/overlays/05.png'
 });
 </script>
 

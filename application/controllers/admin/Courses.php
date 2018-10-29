@@ -232,8 +232,8 @@ class Courses extends Base
      $moreData = array();
     if($this->uri->segment(5) == "chapter_video")
     {
-      $moreData['chapters'] = $this->all('course_chapters');
-      $moreData['videos']   = $this->all('course_videos');
+      $moreData['chapters'] = $this->one('course_chapters',['course_id' => $this->uri->segment(4)]);
+      $moreData['videos']   = $this->one('course_videos',['course_id' => $this->uri->segment(4)]);
     }
 
     if($this->uri->segment(5) == "edit_chapter")

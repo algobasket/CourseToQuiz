@@ -55,8 +55,6 @@
                 <div class="card-body">
                   <p class="card-text"><?php echo substr($course['course_title'],0,30);?></p>
                   <p>
-
-
                     <div class="rating">
                         <?php
                          $rating = round(courseRating($course['id'])['rating']);
@@ -67,11 +65,7 @@
                          for($i=1;$i<=$rating;$i++){
                            echo '<label style="color:yellow">1 star</label>';
                          }
-
                         ?>
-
-
-
                    </div>
                      &nbsp;<small><?php echo courseRating($course['id'])['rating'];?> (<?php echo courseRating($course['id'])['count'];?>)</small></p>
                   <div class="d-flex justify-content-between align-items-center">
