@@ -1,4 +1,4 @@
-# Course To Quiz (Web App - Not Ready For Production)
+# Course To Quiz (Web App)
 
 This webapp is an online platform to learn about various courses and also give fun quiz about the course.
 
