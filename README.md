@@ -2,8 +2,6 @@
 
 This webapp is an online platform to learn about various courses and also give fun quiz about the course.
 
-### Live - https://course2quiz.algobasket.com/ 
-
 ![alt text](https://raw.githubusercontent.com/algobasket/CourseToQuiz/master/background.png) 
 
 ## Features & Functionalities
